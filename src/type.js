@@ -36,8 +36,8 @@ export default class Type {
 
   static toString() {
     const i = this.name.length - 4
-    if(this !== Type && this.name.substring(i) === 'Type') return this.name.substring(0, i)
-    return this.name
+    const name = this.name
+    return this !== Type && name.substring(i) === 'Type' ? name : name.substring(0, i)
   }
 
   static primitive(value) {
@@ -47,17 +47,21 @@ export default class Type {
     return typeof value
   }
 
-  get options() {
-    const options = Object.entries(this)
-    if(!options.length) return ''
-    return `(${options.map(([key, value]) => {
-      if(Array.isArray(value)) {
-        value = `[${value.join(', ')}]`
-      } else if(value !== null && typeof value === 'object') {
-        value = `{${Object.entries(value).map(([k, v]) => `${k}: ${v}`).join(', ')}}`
-      }
-      return `${key}: ${value}`
-    }).join(', ')})`
+  static stringify(value) {
+    switch(this.primitive(value)) {
+      case 'object':
+        return `{${
+          Object.entries(value).map(([k, v]) => `${k}: ${this.stringify(v)}`).join(', ')
+        }}`
+      case 'array':
+        return `[${
+          value.map(v => this.stringify(v)).join(', ')
+        }]`
+      case 'string':
+        return JSON.stringify(value)
+      default:
+        return `${value}`
+    }
   }
 
   validate(value) {
@@ -80,6 +84,6 @@ export default class Type {
   }
 
   toString() {
-    return `${this.constructor}${this.options}`
+    return `${this.constructor}(${this.constructor.stringify(this).slice(1, -1)})`
   }
 }

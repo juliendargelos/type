@@ -6,7 +6,11 @@ export default class Error {
 
   exception(file, line, column) {
     const error = new TypeError(`${this}\n${file}:${line}:${column}`, file, line)
-    if(TypeError.captureStackTrace) TypeError.captureStackTrace(error, TypeError)
+
+    if(TypeError.captureStackTrace) {
+      TypeError.captureStackTrace(error, TypeError)
+    }
+    
     return error
   }
 
