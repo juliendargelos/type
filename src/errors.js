@@ -24,8 +24,8 @@ export default class Errors extends Array {
     return this
   }
 
-  exception(...args) {
-    return Error.prototype.exception.call(this, ...args)
+  get exception() {
+    return Error.exception(this)
   }
 
   delegate(errors) {

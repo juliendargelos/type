@@ -31,13 +31,13 @@ export default class NumberType extends Type {
     },
 
     minimum: ({value, errors, type: {minimum, excludeMinimum}}) => {
-      if(value < minimum && (excludeMinimum || value !== minimum)) errors.add(
+      if(value < minimum || value === minimum && excludeMinimum) errors.add(
         `must be greater than${excludeMinimum ? '' : ' or equal to'}${minimum}`
       )
     },
 
     maximum: ({value, errors, type: {maximum, excludeMaximum}}) => {
-      if(value > maximum && (excludeMaximum || value !== maximum)) errors.add(
+      if(value > maximum || value === maximum && excludeMaximum) errors.add(
         `must be lower than${excludeMaximum ? '' : ' or equal to'} ${maximum}`
       )
     }

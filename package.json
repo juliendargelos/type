@@ -21,67 +21,30 @@
     "plugins": [
       "@babel/plugin-proposal-class-properties",
       "transform-glob-import",
-      [
-        "module-resolver",
-        {
-          "alias": {
-            "~": "./src"
-          }
-        }
-      ]
+      ["module-resolver", {"alias": {"~": "./src"}}]
     ]
+  },
+  "jest": {
+    "roots": ["src", "test"],
+    "testMatch": ["<rootDir>/test/**/*"],
+    "collectCoverage": true
   },
   "eslintConfig": {
     "parser": "babel-eslint",
     "extends": "eslint:recommended",
     "rules": {
-      "semi": [
-        "error",
-        "never"
-      ],
-      "complexity": [
-        "error",
-        7
-      ],
-      "no-multi-spaces": [
-        "error"
-      ],
-      "brace-style": [
-        "error"
-      ],
-      "max-len": [
-        "error",
-        90
-      ],
-      "max-depth": [
-        "error",
-        4
-      ],
-      "max-lines": [
-        "error",
-        300
-      ],
-      "max-lines-per-function": [
-        "error",
-        50
-      ],
-      "max-nested-callbacks": [
-        "error",
-        4
-      ],
-      "max-statements": [
-        "error",
-        10
-      ],
-      "max-params": [
-        "error",
-        4
-      ]
+      "semi": ["error", "never"],
+      "complexity": ["error", 7],
+      "no-multi-spaces": ["error"],
+      "brace-style": ["error"],
+      "max-len": ["error", 90],
+      "max-depth": ["error", 4],
+      "max-lines": ["error", 300],
+      "max-lines-per-function": ["error", 50],
+      "max-nested-callbacks": ["error", 4],
+      "max-statements": ["error", 10],
+      "max-params": ["error", 4]
     }
-  },
-  "jest": {
-    "testMatch": ["**/test/**/*"],
-    "collectCoverage": true
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",

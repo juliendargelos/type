@@ -1,7 +1,8 @@
+import Type from '~/type'
 import Errors from '~/errors'
 
 export default class Validation {
-  constructor(type, value) {
+  constructor(type = new Type(), value = null) {
     this.type = type
     this.value = value
     this.errors = new Errors(this)
@@ -18,11 +19,14 @@ export default class Validation {
     return this.errors.any
   }
 
+  get state() {
+    return this.succeed ? 'Valid' : 'Invalid'
+  }
+
   toString() {
     var annotations = this.annotations.map(([k, v]) => `${k}: ${v}`).join(', ')
     if(annotations) annotations = `[${annotations}] `
-    const value = typeof this.value === 'object' ? JSON.stringify(this.value) : this.value
-    return `${annotations}${this.succeed ? 'V' : 'Inv'}alid ${this.type} value ${value}`
+    return `${annotations}${this.state} ${this.type} value ${Type.stringify(this.value)}`
   }
 
   annotate(key, value) {
@@ -46,13 +50,7 @@ export default class Validation {
   }
 
   throw() {
-    const [file, line, column] = new Error().stack
-      .split("\n")[2]
-      .split('(')[1]
-      .split(')')[0]
-      .split(':')
-
-    if(this.failed) throw this.errors.exception(file, line, column)
+    if(this.failed) throw this.errors.exception
   }
 
   delegate(errors) {

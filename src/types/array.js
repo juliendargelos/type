@@ -17,7 +17,7 @@ export default class ArrayType extends Type {
   static primitives = ['array']
 
   static tests = {
-    length: ({value, errors, type: {length}}) => value.length === length && errors.add(
+    length: ({value, errors, type: {length}}) => value.length !== length && errors.add(
       `length must be equal to ${length}, ` +
       `got length equal to ${value.length}`
     ),

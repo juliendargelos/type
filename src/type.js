@@ -4,7 +4,7 @@ export default class Type {
   constructor({optional = false} = {}) {
     if(optional) this.optional = true
   }
-  
+
   static base = null
   static primitives = []
   static tests = {}
@@ -77,7 +77,7 @@ export default class Type {
       const primitive = this.constructor.primitive(value)
       if(primitives.length && !primitives.includes(primitive)) {
         return validation.errors.add(
-          `type must be ${primitives.join(', ')}, got ${primitive}`
+          `primitive type must be ${primitives.join(', ')}, got ${primitive}`
         )
       }
 
@@ -92,6 +92,9 @@ export default class Type {
   }
 
   toString() {
-    return `${this.constructor}(${this.constructor.stringify(this).slice(1, -1)})`
+    const options = Object.values(this).length
+      ? `(${this.constructor.stringify(this).slice(1, -1)})`
+      : ''
+    return `${this.constructor}${options}`
   }
 }

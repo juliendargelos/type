@@ -8,10 +8,14 @@ export default class Error {
     return message instanceof this ? message : new this(message, validation)
   }
 
-  exception(file, line, column) {
-    const error = new TypeError(`${this}\n${file}:${line}:${column}`, file, line)
+  static exception(subject) {
+    const error = new TypeError(`${subject}`)
     if(TypeError.captureStackTrace) TypeError.captureStackTrace(error, TypeError)
     return error
+  }
+
+  get exception() {
+    return this.constructor.exception(this)
   }
 
   toString() {
