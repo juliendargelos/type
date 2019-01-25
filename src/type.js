@@ -25,6 +25,7 @@ export default class Type {
   static get generator() {
     return Object.assign((...args) => new this(...args), {
       validate: this.validate.bind(this),
+      valid: this.valid.bind(this),
       toString: this.toString.bind(this)
     })
   }
