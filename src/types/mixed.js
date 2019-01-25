@@ -1,4 +1,5 @@
 import Type from '~/type'
+import Errors from '~/errors'
 
 export default class MixedType extends Type {
   constructor(...types) {
@@ -8,13 +9,14 @@ export default class MixedType extends Type {
 
   static tests = {
     types: ({value, errors, type: {types}}) => {
-      const failed = types.some(type => type
+      const typeErrors = new Errors()
+      const failed = types.every(type => type
         .validate(value)
-        .delegate(errors)
+        .delegate(typeErrors)
         .failed
       )
 
-      if(failed) errors.prepend(`type must a mix of ${types.join(', ')}`)
+      if(failed) errors.add(`type must be one of ${types.join(', ')}`, ...typeErrors)
     }
   }
 }

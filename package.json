@@ -7,11 +7,12 @@
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
+    "start": "babel-node",
     "build": "yarn build:node & yarn build:browser",
     "build:node": "parcel build src/index.js -t node --no-cache",
     "build:browser": "parcel build src/index.js -t browser -o browser.js --no-cache",
     "lint": "eslint src",
-    "test": "babel-node test/index.js"
+    "test": "jest"
   },
   "babel": {
     "presets": [
@@ -20,25 +21,67 @@
     "plugins": [
       "@babel/plugin-proposal-class-properties",
       "transform-glob-import",
-      ["module-resolver", {"alias": {"~": "./src"}}]
+      [
+        "module-resolver",
+        {
+          "alias": {
+            "~": "./src"
+          }
+        }
+      ]
     ]
   },
   "eslintConfig": {
     "parser": "babel-eslint",
     "extends": "eslint:recommended",
     "rules": {
-      "semi": ["error", "never"],
-      "complexity": ["error", 7],
-      "no-multi-spaces": ["error"],
-      "brace-style": ["error"],
-      "max-len": ["error", 90],
-      "max-depth": ["error", 4],
-      "max-lines": ["error", 300],
-      "max-lines-per-function": ["error", 50],
-      "max-nested-callbacks": ["error", 4],
-      "max-statements": ["error", 10],
-      "max-params": ["error", 4]
+      "semi": [
+        "error",
+        "never"
+      ],
+      "complexity": [
+        "error",
+        7
+      ],
+      "no-multi-spaces": [
+        "error"
+      ],
+      "brace-style": [
+        "error"
+      ],
+      "max-len": [
+        "error",
+        90
+      ],
+      "max-depth": [
+        "error",
+        4
+      ],
+      "max-lines": [
+        "error",
+        300
+      ],
+      "max-lines-per-function": [
+        "error",
+        50
+      ],
+      "max-nested-callbacks": [
+        "error",
+        4
+      ],
+      "max-statements": [
+        "error",
+        10
+      ],
+      "max-params": [
+        "error",
+        4
+      ]
     }
+  },
+  "jest": {
+    "testMatch": ["**/test/**/*"],
+    "collectCoverage": true
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
@@ -49,6 +92,7 @@
     "babel-plugin-module-resolver": "^3.1.3",
     "babel-plugin-transform-glob-import": "^1.0.1",
     "eslint": "^5.12.1",
+    "jest": "^24.0.0",
     "parcel": "^1.11.0",
     "parcel-plugin-eslint": "^1.0.4"
   }

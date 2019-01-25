@@ -7,20 +7,8 @@ export default class Type {
   
   static base = null
   static primitives = []
-  static tests = {
-    optional: (validation) => {
-      if((validation.value === null || validation.value === undefined)) {
-        validation.cancel()
-      }
-    },
-
-    primitive: ({value, errors, type: {constructor: {primitive, primitives}}}) => {
-      primitive = primitive(value)
-      if(primitives.length && !primitives.includes(primitive)) errors.add(
-        `type must be ${primitives.join(', ')}, got ${primitive}`
-      )
-    }
-  }
+  static tests = {}
+  static all = []
 
   static get generator() {
     return Object.assign((...args) => new this(...args), {
@@ -36,6 +24,7 @@ export default class Type {
     }
 
     const name = type.toString()
+    this.all.push(type)
     this[name] = type
     this[name[0].toLowerCase() + name.substring(1)] = type.generator
   }
@@ -75,19 +64,31 @@ export default class Type {
   static toString() {
     const i = this.name.length - 4
     const name = this.name
-    return this !== Type && name.substring(i) === 'Type' ? name : name.substring(0, i)
+    return this !== Type && name.substring(i) === 'Type' ? name.substring(0, i) : name
   }
 
   validate(value) {
     return new Validation(this, value).continue(validation => {
+      if(this.optional && (value === null || value === undefined)) {
+        return validation.cancel()
+      }
+
+      const primitives = this.constructor.primitives
+      const primitive = this.constructor.primitive(value)
+      if(primitives.length && !primitives.includes(primitive)) {
+        return validation.errors.add(
+          `type must be ${primitives.join(', ')}, got ${primitive}`
+        )
+      }
+
       Object.keys(this.constructor.tests).forEach(test => {
-        if(test in this || test === 'primitive') validation.test(test, this)
+        if(test in this) validation.test(test, this)
       })
     })
   }
 
   valid(value) {
-    return this.validation(value).succeed
+    return this.validate(value).succeed
   }
 
   toString() {
