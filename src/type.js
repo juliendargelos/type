@@ -4,9 +4,23 @@ export default class Type {
   constructor({optional = false} = {}) {
     if(optional) this.optional = true
   }
-
-  static primitives = []
+  
   static base = null
+  static primitives = []
+  static tests = {
+    optional: (validation) => {
+      if((validation.value === null || validation.value === undefined)) {
+        validation.cancel()
+      }
+    },
+
+    primitive: ({value, errors, type: {constructor: {primitive, primitives}}}) => {
+      primitive = primitive(value)
+      if(primitives.length && !primitives.includes(primitive)) errors.add(
+        `type must be ${primitives.join(', ')}, got ${primitive}`
+      )
+    }
+  }
 
   static get generator() {
     return Object.assign((...args) => new this(...args), {
@@ -21,23 +35,8 @@ export default class Type {
     }
 
     const name = type.toString()
-
     this[name] = type
     this[name[0].toLowerCase() + name.substring(1)] = type.generator
-  }
-
-  static validate(value) {
-    return (this.base || (this.base = new this())).validate(value)
-  }
-
-  static valid(value) {
-    return this.validate(value).succeed
-  }
-
-  static toString() {
-    const i = this.name.length - 4
-    const name = this.name
-    return this !== Type && name.substring(i) === 'Type' ? name : name.substring(0, i)
   }
 
   static primitive(value) {
@@ -64,18 +63,25 @@ export default class Type {
     }
   }
 
+  static validate(value) {
+    return (this.base || (this.base = new this())).validate(value)
+  }
+
+  static valid(value) {
+    return this.validate(value).succeed
+  }
+
+  static toString() {
+    const i = this.name.length - 4
+    const name = this.name
+    return this !== Type && name.substring(i) === 'Type' ? name : name.substring(0, i)
+  }
+
   validate(value) {
     return new Validation(this, value).continue(validation => {
-      if(this.optional && (value === null || value === undefined)) {
-        return validation.cancel()
-      }
-
-      const primitives = this.constructor.primitives
-      const primitive = this.constructor.primitive(value)
-
-      if(primitives.length && !primitives.includes(primitive)) {
-        validation.errors.add(`type must be ${primitives.join(', ')}, got ${primitive}`)
-      }
+      Object.keys(this.constructor.tests).forEach(test => {
+        if(test in this || test === 'primitive') validation.test(test, this)
+      })
     })
   }
 

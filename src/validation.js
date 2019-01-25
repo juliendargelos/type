@@ -1,12 +1,13 @@
 import Errors from '~/errors'
 
 export default class Validation {
-  constructor(type, value, line) {
+  constructor(type, value) {
     this.type = type
     this.value = value
     this.errors = new Errors(this)
     this.annotations = []
     this.canceled = false
+    this.delegated = false
   }
 
   get succeed() {
@@ -18,24 +19,30 @@ export default class Validation {
   }
 
   toString() {
-    var annotations = this.annotations.map(({key, value}) => `${key}: ${value}`).join(', ')
+    var annotations = this.annotations.map(([k, v]) => `${k}: ${v}`).join(', ')
     if(annotations) annotations = `[${annotations}] `
     const value = typeof this.value === 'object' ? JSON.stringify(this.value) : this.value
-    return `${annotations}${this.succeed ? 'Valid' : 'Invalid'} ${this.type} value ${value}`
+    return `${annotations}${this.succeed ? 'V' : 'Inv'}alid ${this.type} value ${value}`
   }
 
   annotate(key, value) {
-    this.annotations.push({key, value})
+    this.annotations.push([key, value])
     return this
   }
 
-  continue(callback) {
-    if(!this.canceled && !this.failed) callback.call(this, this)
+  test(name, ...parameters) {
+    this.continue(this.type.constructor.tests[name], ...parameters)
+    return this
+  }
+
+  continue(callback, ...parameters) {
+    if(!this.canceled && !this.failed) callback.call(this, this, ...parameters)
     return this
   }
 
   cancel() {
     this.canceled = true
+    return this
   }
 
   throw() {
@@ -49,7 +56,7 @@ export default class Validation {
   }
 
   delegate(errors) {
-    errors.push(...this.errors)
+    this.errors.delegate(errors)
     return this
   }
 }

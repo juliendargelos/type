@@ -1,7 +1,7 @@
 import Error from '~/error'
 
 export default class Errors extends Array {
-  constructor(validation) {
+  constructor(validation = null) {
     super()
     this.validation = validation
   }
@@ -15,18 +15,25 @@ export default class Errors extends Array {
   }
 
   add(...messages) {
-    const initial = this.length === 0
-    if(initial) this.push(null)
-    messages.forEach(message => this.push(message instanceof Error
-      ? message
-      : new Error(this.validation, message)
-    ))
-    if(initial) this.shift()
+    messages.forEach(message => this.push(Error.for(message, this.validation)))
+    return this
+  }
+
+  prepend(...messages) {
+    messages.forEach(message => this.splice(0, 0, Error.for(message, this.validation)))
     return this
   }
 
   exception(...args) {
     return Error.prototype.exception.call(this, ...args)
+  }
+
+  delegate(errors) {
+    if(this.length) {
+      errors.delegated = true
+      errors.push(...this)
+    }
+    return this
   }
 
   toString() {

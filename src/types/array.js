@@ -16,51 +16,44 @@ export default class ArrayType extends Type {
 
   static primitives = ['array']
 
-  validate(value) {
-    return super.validate(value).continue(validation => {
-      if('length' in this) this.validateLength(value.length, validation)
-      if('minimum' in this) this.validateMinimum(value.length, validation)
-      if('maximum' in this) this.validateMaximum(value.length, validation)
-      if('structure' in this) this.validateStructure(value, validation)
-    })
-  }
-
-  validateLength(value, validation) {
-    if(value.length === this.length) validation.errors.add(
-      `length must be equal to ${this.length}, ` +
+  static tests = {
+    length: ({value, errors, type: {length}}) => value.length === length && errors.add(
+      `length must be equal to ${length}, ` +
       `got length equal to ${value.length}`
-    )
-  }
+    ),
 
-  validateMaximum(value, validation) {
-    if(value.length < this.minimum) validation.errors.add(
-      `length must be greater than or equal to ${this.minimum}, ` +
+    minimum: ({value, errors, type: {minimum}}) => value.length < minimum && errors.add(
+      `length must be greater than or equal to ${minimum}, ` +
       `got length equal to ${value.length}`
-    )
-  }
+    ),
 
-  validateMinimum(value, validation) {
-    if(value.length > this.maximum) validation.errors.add(
-      `length must be lower than or equal to ${this.maximum}, ` +
+    maximum: ({value, errors, type: {maximum}}) => value.length > maximum && errors.add(
+      `length must be lower than or equal to ${maximum}, ` +
       `got length equal to ${value.length}`
-    )
-  }
+    ),
 
-  validateStructure(value, validation) {
-    const errors = []
+    structure: (validation) => {
+      const structure = validation.type.structure
+      validation.test(`structure${Array.isArray(structure) ? 'Array' : 'Type'}`)
+      if(validation.errors.delegated) validation.errors.prepend('structure is invalid')
+    },
 
-    const validateStructure = (type, value, index) => type
-      .validate(value)
-      .annotate('index', index)
-      .delegate(errors)
-      .failed
+    structureArray: ({value, errors, type: {structure}}) => {
+      structure.some((type, index) => type
+        .validate(value[index])
+        .annotate('index', index)
+        .delegate(errors)
+        .failed
+      )
+    },
 
-    if(Array.isArray(this.structure)) {
-      this.structure.some((type, index) => validateStructure(type, value[index], index))
-    } else {
-      value.some((v, index) => validateStructure(this.structure, v, index))
+    structureType: ({value, errors, type: {structure}}) => {
+      value.some((v, index) => structure
+        .validate(v)
+        .annotate('index', index)
+        .delegate(errors)
+        .failed
+      )
     }
-
-    if(errors.length) validation.errors.add(`structure is invalid`, ...errors)
   }
 }

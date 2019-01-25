@@ -21,37 +21,36 @@ export default class StringType extends Type {
 
   static primitives = ['string']
 
-  validate(value) {
-    return super.validate(value).continue(validation => {
-      if('length' in this && value.length !== this.length) {
-        return validation.errors.add(
-          `length must be equal to ${this.length}, got length equal to ${value.length}`
-        )
-      }
+  static tests = {
+    length: ({value, errors, type: {length}}) => value.length !== length && errors.add(
+      `length must be equal to ${length}, ` +
+      `got length equal to ${value.length}`
+    ),
 
-      if('minimum' in this && value.length < this.minimum) {
-        return validation.errors.add(
-          `length must be greater than or equal to ${this.minimum}, got length equal to ${value.length}`
-        )
-      }
+    minimum: ({value, errors, type: {minimum}}) => value.length < minimum && errors.add(
+      `length must be greater than or equal to ${minimum}, ` +
+      `got length equal to ${value.length}`
+    ),
 
-      if('maximum' in this && value.length > this.maximum) {
-        return validation.errors.add(
-          `length must be lower than or equal to ${this.maximum}, got length equal to ${value.length}`
-        )
-      }
+    maximum: ({value, errors, type: {maximum}}) => value.length > maximum && errors.add(
+      `length must be lower than or equal to ${maximum}, ` +
+      `got length equal to ${value.length}`
+    ),
 
-      if('only' in this && value.split('').some(char => !this.only.includes(char))) {
-        return validation.errors.add(`must only contain ${this.only}`)
+    only: ({value, errors, type: {only}}) => {
+      if(value.split('').some(char => !only.includes(char))) {
+        errors.add(`must only contain ${only}`)
       }
+    },
 
-      if('except' in this && value.split('').some(char => this.except.includes(char))) {
-        return validation.errors.add(`must not contain ${this.except}`)
+    except: ({value, errors, type: {except}}) => {
+      if(value.split('').some(char => except.includes(char))) {
+        errors.add(`must not contain ${except}`)
       }
+    },
 
-      if('pattern' in this && !value.match(this.pattern)) {
-        return validation.errors.add(`must match pattern ${this.pattern}`)
-      }
-    })
+    pattern: ({value, errors, type: {pattern}}) => {
+      if(!value.match(pattern)) errors.add(`must match pattern ${pattern}`)
+    }
   }
 }

@@ -8,25 +8,16 @@ export default class ObjectType extends Type {
 
   static primitives = ['object']
 
-  validate(value) {
-    return super.validate(value).continue(validation => {
-      if('structure' in this) {
-        const structure = Object.entries(this.structure)
-        const errors = []
-        const failed = structure.some(([attribute, structureType]) => structureType
-          .validate(value[attribute])
-          .annotate('attribute', attribute)
-          .delegate(errors)
-          .failed
-        )
+  static tests = {
+    structure: ({value, errors, type: {structure}}) => {
+      Object.entries(structure).some(([attribute, type]) => type
+        .validate(value[attribute])
+        .annotate('attribute', attribute)
+        .delegate(errors)
+        .failed
+      )
 
-        if(failed) {
-          return validation.errors.add(
-            `structure is invalid`,
-            ...errors
-          )
-        }
-      }
-    })
+      if(errors.delegated) errors.prepend('structure is invalid')
+    }
   }
 }

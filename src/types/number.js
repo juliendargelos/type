@@ -2,62 +2,58 @@ import Type from '~/type'
 
 export default class NumberType extends Type {
   constructor({
-    infinity = false,
     integer = false,
+    exclude = null,
+    finite = null,
     minimum = null,
     maximum = null,
-    exclude = false,
-    excludeMinimum = false,
-    excludeMaximum = false,
     ...options
   } = {}) {
     super(options)
-
-    if(infinity) this.infinity = true
     if(integer) this.integer = true
-
-    if(minimum !== null) {
-      this.minimum = minimum
-      if(exclude) this.exclude = true
-      else if(this.excludeMinimum) this.excludeMinimum = true
-    }
-
-    if(maximum !== null) {
-      this.maximum = maximum
-      if(exclude) this.exclude = true
-      else if(this.excludeMinimum) this.excludeMinimum = true
-    }
+    if(exclude !== null) this.exclude = exclude
+    if(finite !== null) this.finite = !!finite
+    if(minimum !== null) this.minimum = minimum
+    if(maximum !== null) this.maximum = maximum
   }
 
   static primitives = ['number']
 
-  validate(value) {
-    return super.validate(value).continue(validation => {
-      if(!this.infinity && (value === Infinity || value === -Infinity)) {
-        validation.errors.add('must be finite')
-      }
+  static tests = {
+    integer: ({value, errors}) => {
+      if(Math.floor(value) !== value) errors.add('must be an integer')
+    },
 
-      if(this.integer && Math.floor(value) !== value) {
-        validation.errors.add('must be an integer')
-      }
+    finite: ({value, errors, type: {finite}}) => {
+      if(finite !== (value !== Infinity && value !== -Infinity)) errors.add(
+        `must be ${finite ? '' : 'in'}finite`
+      )
+    },
 
-      if('minimum' in this && value <= this.minimum) {
-        const exclude = this.exclude || this.excludeMinimum
-        if(exclude || value !== this.minimum) {
-          return validation.errors.add(
-            `must be greater than${exclude ?  '' : ' or equal to'} ${this.minimum}`
-          )
-        }
-      }
+    minimum: ({value, errors, type: {minimum, excludeMinimum}}) => {
+      if(value > minimum && (excludeMinimum || value !== minimum)) errors.add(
+        `must be greater than${excludeMinimum ? '' : ' or equal to'}${minimum}`
+      )
+    },
 
-      if('maximum' in this && value >= this.maximum) {
-        const exclude = this.exclude || this.excludeMaximum
-        if(exclude || value !== this.maximum) {
-          return validation.errors.add(
-            `must be lower than${exclude ?  '' : ' or equal to'} ${this.maximum}`
-          )
-        }
-      }
-    })
+    maximum: ({value, errors, type: {maximum, excludeMaximum}}) => {
+      if(value < maximum && (excludeMaximum || value !== maximum)) errors.add(
+        `must be lower than${excludeMaximum ? '' : ' or equal to'} ${maximum}`
+      )
+    }
+  }
+
+  get excludeMinimum() {
+    return (
+      this.exclude === true ||
+      typeof this.exclude === 'object' && this.exclude.minimum
+    )
+  }
+
+  get excludeMaximum() {
+    return (
+      this.exclude === true ||
+      typeof this.exclude === 'object' && this.exclude.maximum
+    )
   }
 }
