@@ -1,0 +1,29 @@
+#!/bin/sh
+
+if git diff --cached --name-only | grep '^src/'
+then
+  if ! yarn lint
+  then
+    echo Commit canceled: lint failed.
+    exit 1
+  fi
+fi
+
+if git diff --cached --name-only | grep '^src/\|test/'
+then
+  if ! yarn test
+  then
+    echo Commit canceled: test failed.
+    exit 1
+  fi
+fi
+
+if git diff --cached --name-only | grep '^src/'
+then
+  if ! yarn build
+  then
+    echo Commit canceled: build failed.
+    exit 1
+  fi
+  git add dist
+fi
