@@ -2,4 +2,4 @@ checks:
   similar-code:
     enabled: true
     config:
-      threshold: 70
+      threshold: 80
