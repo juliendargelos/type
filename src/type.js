@@ -47,7 +47,7 @@ export default class Type {
           value.map(v => this.stringify(v)).join(', ')
         }]`
       case 'string':
-        return JSON.stringify(value)
+        return `'${value}'`
       default:
         return `${value}`
     }

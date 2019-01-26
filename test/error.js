@@ -12,3 +12,14 @@ test('Error for an Error is itself', () => {
 test('Error for a string is a new Error', () => {
   expect(Error.for('foo')).toBeInstanceOf(Error)
 })
+
+test('uses captureStackTrace if available', () => {
+  TypeError.captureStackTrace = jest.fn()
+  Error.exception('foo')
+  expect(TypeError.captureStackTrace).toBeCalled()
+})
+
+test('does not use captureStackTrace if unvailable', () => {
+  TypeError.captureStackTrace = null
+  expect(() => Error.exception('foo')).not.toThrow()
+})

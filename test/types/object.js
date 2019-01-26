@@ -9,3 +9,11 @@ test('number is invalid',    () => expect(Type.object.valid(2)).toBe(false))
 test('string is invalid',    () => expect(Type.object.valid('')).toBe(false))
 test('array is invalid',     () => expect(Type.object.valid([])).toBe(false))
 test('function is invalid',  () => expect(Type.object.valid(() => {})).toBe(false))
+
+test('structure is valid', () => {
+  expect(Type.object({foo: Type.string}).valid({foo: 'bar'})).toBe(true)
+})
+
+test('structure is invalid', () => {
+  expect(Type.object({foo: Type.number}).valid({foo: 'bar'})).toBe(false)
+})

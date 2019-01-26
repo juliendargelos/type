@@ -1,7 +1,7 @@
 import Type from '~/type'
 
 export default class ValueType extends Type {
-  constructor({only = null, except = null}) {
+  constructor({only = null, except = null} = {}) {
     super()
     if(only) this.only = Array.isArray(only) ? only : [only]
     if(except) this.except = Array.isArray(except) ? except : [except]

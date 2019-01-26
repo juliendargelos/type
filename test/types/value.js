@@ -1,5 +1,7 @@
 import Type from '~'
 
+test('null is valid', () => expect(Type.value.valid(null)).toBe(true))
+
 const digit = Type.value({only: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]})
 test('0 is valid',           () => expect(digit.valid(0)).toBe(true))
 test('1 is valid',           () => expect(digit.valid(1)).toBe(true))
@@ -23,6 +25,10 @@ test('array is invalid',     () => expect(digit.valid([])).toBe(false))
 test('object is invalid',    () => expect(digit.valid({})).toBe(false))
 test('function is invalid',  () => expect(digit.valid(() => {})).toBe(false))
 
+const foo = Type.value({only: 'foo'})
+test('foo is valid',  () => expect(foo.valid('foo')).toBe(true))
+test('bar is invalid',  () => expect(foo.valid('bar')).toBe(false))
+
 const notBlank = Type.value({except: [undefined, null, false, '']})
 test('not empty string is valid', () => expect(notBlank.valid('foo')).toBe(true))
 test('array is valid',            () => expect(notBlank.valid([])).toBe(true))
@@ -35,3 +41,6 @@ test('undefined is invalid',      () => expect(notBlank.valid(undefined)).toBe(f
 test('false is invalid',          () => expect(notBlank.valid(false)).toBe(false))
 test('empty string is invalid',   () => expect(notBlank.valid('')).toBe(false))
 
+const notBar = Type.value({except: 'bar'})
+test('foo is valid',  () => expect(notBar.valid('foo')).toBe(true))
+test('bar is invalid',  () => expect(notBar.valid('bar')).toBe(false))

@@ -7,7 +7,6 @@
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
-    "start": "babel-node",
     "build": "yarn build:node & yarn build:browser",
     "build:node": "parcel build src/index.js -t node --no-cache",
     "build:browser": "parcel build src/index.js -t browser -o browser.js --no-cache",
@@ -27,7 +26,15 @@
   "jest": {
     "roots": ["src", "test"],
     "testMatch": ["<rootDir>/test/**/*"],
-    "collectCoverage": true
+    "collectCoverage": true,
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    }
   },
   "eslintConfig": {
     "parser": "babel-eslint",
@@ -48,7 +55,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
-    "@babel/node": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.3.0",
     "@babel/preset-env": "^7.3.1",
     "babel-eslint": "^10.0.1",
@@ -56,7 +62,6 @@
     "babel-plugin-transform-glob-import": "^1.0.1",
     "eslint": "^5.12.1",
     "jest": "^24.0.0",
-    "parcel": "^1.11.0",
-    "parcel-plugin-eslint": "^1.0.4"
+    "parcel": "^1.11.0"
   }
 }
