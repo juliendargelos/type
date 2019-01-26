@@ -11,7 +11,7 @@ fi
 
 if git diff --cached --name-only | grep '^src/\|test/'
 then
-  if ! yarn test
+  if ! yarn test:report
   then
     echo Commit canceled: test failed.
     exit 1
