@@ -29,6 +29,10 @@
     "roots": ["src", "test"],
     "testMatch": ["<rootDir>/test/**/*"],
     "collectCoverage": true,
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*",
+      "!<rootDir>/src/types/(boolean|nan|null|undefined).js"
+    ],
     "coverageReporters": ["lcov"],
     "coverageThreshold": {
       "global": {
