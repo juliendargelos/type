@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if git diff --cached --name-only | grep '^src/'
+if git diff --quiet --cached --name-only | grep '^src/'
 then
   if ! yarn lint
   then
@@ -9,7 +9,7 @@ then
   fi
 fi
 
-if git diff --cached --name-only | grep '^src/\|test/'
+if git diff --quiet --cached --name-only | grep '^src/\|test/'
 then
   if ! yarn test:report
   then
@@ -18,7 +18,7 @@ then
   fi
 fi
 
-if git diff --cached --name-only | grep '^src/'
+if git diff --quiet --cached --name-only | grep '^src/'
 then
   if ! yarn build
   then
