@@ -21,21 +21,29 @@ export default class StringType extends Type {
 
   static primitives = ['string']
 
+  static lengthMessage = (length, target, comparison = null) => (
+    `length must be ${comparison ? `${comparison} than or` : ''} equal to ${target}, ` +
+    `got length equal to ${length}`
+  )
+
   static tests = {
-    length: ({value, errors, type: {length}}) => value.length !== length && errors.add(
-      `length must be equal to ${length}, ` +
-      `got length equal to ${value.length}`
-    ),
+    length: ({value, errors, type: {length, constructor: {lengthMessage}}}) => {
+      if(value.length !== length) {
+        errors.add(lengthMessage(value.length, length)
+      }
+    },
 
-    minimum: ({value, errors, type: {minimum}}) => value.length < minimum && errors.add(
-      `length must be greater than or equal to ${minimum}, ` +
-      `got length equal to ${value.length}`
-    ),
+    minimum: ({value, errors, type: {minimum, constructor: {lengthMessage}}}) => {
+      if(value.length < minimum) {
+        errors.add(lengthMessage(value.length, minimum, 'greater')
+      }
+    },
 
-    maximum: ({value, errors, type: {maximum}}) => value.length > maximum && errors.add(
-      `length must be lower than or equal to ${maximum}, ` +
-      `got length equal to ${value.length}`
-    ),
+    maximum: ({value, errors, type: {maximum, constructor: {lengthMessage}}}) => {
+      if(value.length > maximum) {
+        errors.add(lengthMessage(value.length, maximum, 'lower')
+      }
+    },
 
     only: ({value, errors, type: {only}}) => {
       if(value.split('').some(char => !only.includes(char))) {
