@@ -1,4 +1,5 @@
 import Type from '~/type'
+import Comparison from '~/helpers/comparison'
 
 export default class StringType extends Type {
   constructor({
@@ -21,28 +22,31 @@ export default class StringType extends Type {
 
   static primitives = ['string']
 
-  static lengthMessage = (length, target, comparison = null) => (
-    `length must be ${comparison ? `${comparison} than or` : ''} equal to ${target}, ` +
-    `got length equal to ${length}`
-  )
-
   static tests = {
-    length: ({value, errors, type: {length, constructor: {lengthMessage}}}) => {
-      if(value.length !== length) {
-        errors.add(lengthMessage(value.length, length)
-      }
+    length: ({value, errors, type: {length}}) => {
+      if(value.length !== length) errors.add(Comparison.message({
+        subject: 'length',
+        value: value.length,
+        target: length
+      }))
     },
 
-    minimum: ({value, errors, type: {minimum, constructor: {lengthMessage}}}) => {
-      if(value.length < minimum) {
-        errors.add(lengthMessage(value.length, minimum, 'greater')
-      }
+    minimum: ({value, errors, type: {minimum}}) => {
+      if(value.length < minimum) errors.add(Comparison.message({
+        subject: 'length',
+        value: value.length,
+        target: minimum,
+        compare: 'greater'
+      }))
     },
 
-    maximum: ({value, errors, type: {maximum, constructor: {lengthMessage}}}) => {
-      if(value.length > maximum) {
-        errors.add(lengthMessage(value.length, maximum, 'lower')
-      }
+    maximum: ({value, errors, type: {maximum}}) => {
+      if(value.length > maximum) errors.add(Comparison.message({
+        subject: 'length',
+        value: value.length,
+        target: maximum,
+        compare: 'lower'
+      }))
     },
 
     only: ({value, errors, type: {only}}) => {

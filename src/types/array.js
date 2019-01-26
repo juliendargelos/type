@@ -1,4 +1,5 @@
 import Type from '~/type'
+import Comparison from '~/helpers/comparison'
 
 export default class ArrayType extends Type {
   constructor(structure = null, {
@@ -18,18 +19,29 @@ export default class ArrayType extends Type {
 
   static tests = {
     length: ({value, errors, type: {length}}) => value.length !== length && errors.add(
-      `length must be equal to ${length}, ` +
-      `got length equal to ${value.length}`
+      Comparison.message({
+        value: value.length,
+        target: length,
+        subject: 'length'
+      })
     ),
 
     minimum: ({value, errors, type: {minimum}}) => value.length < minimum && errors.add(
-      `length must be greater than or equal to ${minimum}, ` +
-      `got length equal to ${value.length}`
+      Comparison.message({
+        value: value.length,
+        target: minimum,
+        subject: 'length',
+        compare: 'greater'
+      })
     ),
 
     maximum: ({value, errors, type: {maximum}}) => value.length > maximum && errors.add(
-      `length must be lower than or equal to ${maximum}, ` +
-      `got length equal to ${value.length}`
+      Comparison.message({
+        value: value.length,
+        target: maximum,
+        subject: 'length',
+        compare: 'lower'
+      })
     ),
 
     structure: (validation) => {
