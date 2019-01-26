@@ -1,5 +1,4 @@
 import Type from '~/type'
-import Comparison from '~/helpers/comparison'
 
 export default class NumberType extends Type {
   constructor({
@@ -12,7 +11,7 @@ export default class NumberType extends Type {
   } = {}) {
     super(options)
     if(integer) this.integer = true
-    if(exclude) this.exclude = exclude
+    if(exclude !== null) this.exclude = exclude
     if(finite !== null) this.finite = !!finite
     if(minimum !== null) this.minimum = minimum
     if(maximum !== null) this.maximum = maximum
@@ -31,41 +30,30 @@ export default class NumberType extends Type {
       )
     },
 
-    minimum: ({value, errors, type: {minimum, minimumExcluded}}) => {
-      if(value < minimum || value === minimum && minimumExcluded) errors.add(
-        Comparison.message({
-          value,
-          target: minimum,
-          equal: !minimumExcluded,
-          compare: 'greater'
-        })
+    minimum: ({value, errors, type: {minimum, excludeMinimum}}) => {
+      if(value < minimum || value === minimum && excludeMinimum) errors.add(
+        `must be greater than${excludeMinimum ? '' : ' or equal to'}${minimum}`
       )
     },
 
-    maximum: ({value, errors, type: {maximum, maximumExcluded}}) => {
-      if(value > maximum || value === maximum && maximumExcluded) errors.add(
-        Comparison.message({
-          value,
-          target: maximum,
-          equal: !maximumExcluded,
-          compare: 'lower'
-        })
+    maximum: ({value, errors, type: {maximum, excludeMaximum}}) => {
+      if(value > maximum || value === maximum && excludeMaximum) errors.add(
+        `must be lower than${excludeMaximum ? '' : ' or equal to'} ${maximum}`
       )
     }
   }
 
-  excluded(boundary) {
+  get excludeMinimum() {
     return (
       this.exclude === true ||
-      typeof this.exclude === 'object' && this.exclude[boundary]
+      typeof this.exclude === 'object' && this.exclude.minimum
     )
   }
 
-  get minimumExcluded() {
-    return this.excluded('minimum')
-  }
-
-  get maximumExcluded() {
-    return this.excluded('maximum')
+  get excludeMaximum() {
+    return (
+      this.exclude === true ||
+      typeof this.exclude === 'object' && this.exclude.maximum
+    )
   }
 }

@@ -1,5 +1,4 @@
 import Type from '~/type'
-import Comparison from '~/helpers/comparison'
 
 export default class StringType extends Type {
   constructor({
@@ -23,31 +22,20 @@ export default class StringType extends Type {
   static primitives = ['string']
 
   static tests = {
-    length: ({value, errors, type: {length}}) => {
-      if(value.length !== length) errors.add(Comparison.message({
-        subject: 'length',
-        value: value.length,
-        target: length
-      }))
-    },
+    length: ({value, errors, type: {length}}) => value.length !== length && errors.add(
+      `length must be equal to ${length}, ` +
+      `got length equal to ${value.length}`
+    ),
 
-    minimum: ({value, errors, type: {minimum}}) => {
-      if(value.length < minimum) errors.add(Comparison.message({
-        subject: 'length',
-        value: value.length,
-        target: minimum,
-        compare: 'greater'
-      }))
-    },
+    minimum: ({value, errors, type: {minimum}}) => value.length < minimum && errors.add(
+      `length must be greater than or equal to ${minimum}, ` +
+      `got length equal to ${value.length}`
+    ),
 
-    maximum: ({value, errors, type: {maximum}}) => {
-      if(value.length > maximum) errors.add(Comparison.message({
-        subject: 'length',
-        value: value.length,
-        target: maximum,
-        compare: 'lower'
-      }))
-    },
+    maximum: ({value, errors, type: {maximum}}) => value.length > maximum && errors.add(
+      `length must be lower than or equal to ${maximum}, ` +
+      `got length equal to ${value.length}`
+    ),
 
     only: ({value, errors, type: {only}}) => {
       if(value.split('').some(char => !only.includes(char))) {

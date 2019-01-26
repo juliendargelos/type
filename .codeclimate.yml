@@ -1,0 +1,5 @@
+checks:
+  similar-code:
+    enabled: true
+    config:
+      threshold: 3
