@@ -1,7 +1,7 @@
 checks:
   similar-code:
     config:
-      threshold: 100
+      threshold: 50
   method-complexity:
     config:
       threshold: 6
