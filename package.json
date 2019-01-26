@@ -11,7 +11,8 @@
     "build:node": "parcel build src/index.js -t node --no-cache",
     "build:browser": "parcel build src/index.js -t browser -o browser.js --no-cache",
     "lint": "eslint src",
-    "test": "jest"
+    "test": "jest",
+    "test:report": ". .env && cc-test-reporter before-build && if yarn test; then cc-test-reporter after-build; fi"
   },
   "babel": {
     "presets": [
@@ -27,6 +28,7 @@
     "roots": ["src", "test"],
     "testMatch": ["<rootDir>/test/**/*"],
     "collectCoverage": true,
+    "coverageReporters": ["lcov"],
     "coverageThreshold": {
       "global": {
         "branches": 100,
