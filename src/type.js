@@ -7,7 +7,6 @@ export default class Type {
 
   static base = null
   static primitives = []
-  static messages = {}
   static tests = {}
   static all = []
 
