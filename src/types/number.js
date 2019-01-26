@@ -1,5 +1,4 @@
 import Type from '~/type'
-import Comparable from '~/helpers/comparable'
 
 export default class NumberType extends Type {
   constructor({
@@ -33,22 +32,28 @@ export default class NumberType extends Type {
 
     minimum: ({value, errors, type: {minimum, excludeMinimum}}) => {
       if(value < minimum || value === minimum && excludeMinimum) errors.add(
-        Comparable.message('greater than', minimum, {value, exclude: excludeMinimum})
+        `must be greater than${excludeMinimum ? '' : ' or equal to'}${minimum}`
       )
     },
 
     maximum: ({value, errors, type: {maximum, excludeMaximum}}) => {
       if(value > maximum || value === maximum && excludeMaximum) errors.add(
-        Comparable.message('lower than', maximum, {value, exclude: excludeMaximum})
+        `must be lower than${excludeMaximum ? '' : ' or equal to'} ${maximum}`
       )
     }
   }
 
   get excludeMinimum() {
-    return Comparable.exclude(this.exclude, 'minimum')
+    return (
+      this.exclude === true ||
+      typeof this.exclude === 'object' && this.exclude.minimum
+    )
   }
 
   get excludeMaximum() {
-    return Comparable.exclude(this.exclude, 'maximum')
+    return (
+      this.exclude === true ||
+      typeof this.exclude === 'object' && this.exclude.maximum
+    )
   }
 }

@@ -1,5 +1,4 @@
 import Type from '~/type'
-import Comparable from '~/helpers/comparable'
 
 export default class StringType extends Type {
   constructor({
@@ -24,15 +23,18 @@ export default class StringType extends Type {
 
   static tests = {
     length: ({value, errors, type: {length}}) => value.length !== length && errors.add(
-      Comparable.message('equal to', length, {value, subject: 'length'})
+      `length must be equal to ${length}, ` +
+      `got length equal to ${value.length}`
     ),
 
     minimum: ({value, errors, type: {minimum}}) => value.length < minimum && errors.add(
-      Comparable.message('greater than', minimum, {value, subject: 'length'})
+      `length must be greater than or equal to ${minimum}, ` +
+      `got length equal to ${value.length}`
     ),
 
     maximum: ({value, errors, type: {maximum}}) => value.length > maximum && errors.add(
-      Comparable.message('lower than', maximum, {value, subject: 'length'})
+      `length must be lower than or equal to ${maximum}, ` +
+      `got length equal to ${value.length}`
     ),
 
     only: ({value, errors, type: {only}}) => {
