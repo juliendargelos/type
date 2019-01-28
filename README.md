@@ -5,5 +5,6 @@
 
 A type checking javascript library.
 
-[Repository](https://github.com/juliendargelos/type)
-[Documentation](https://juliendargelos.github.io/type)
+- [Repository](https://github.com/juliendargelos/type)
+- [Documentation](https://juliendargelos.github.io/type)
+- [Issues](https://github.com/juliendargelos/type/issues)
