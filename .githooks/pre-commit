@@ -26,7 +26,10 @@ then
     exit 1
   fi
   git add dist
+fi
 
+if git diff --cached --name-only | grep '^src/.*\|README\.md$'
+then
   if ! yarn docs
   then
     echo Commit canceled: docs failed.
