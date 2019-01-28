@@ -26,4 +26,11 @@ then
     exit 1
   fi
   git add dist
+
+  if ! yarn docs
+  then
+    echo Commit canceled: docs failed.
+    exit 1
+  fi
+  git add docs
 fi
