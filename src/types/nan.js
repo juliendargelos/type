@@ -1,5 +1,7 @@
 import Type from '~/type'
 
-export default class NanType extends Type {
+class NanType extends Type {
   static primitives = ['nan']
 }
+
+export default NanType

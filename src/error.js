@@ -1,4 +1,4 @@
-export default class Error {
+class Error {
   constructor(message, validation = null) {
     this.message = message
     this.validation = validation
@@ -22,3 +22,5 @@ export default class Error {
     return `${this.validation ? `${this.validation}: ` : ''}${this.message}.`
   }
 }
+
+export default Error

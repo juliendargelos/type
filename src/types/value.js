@@ -1,6 +1,6 @@
 import Type from '~/type'
 
-export default class ValueType extends Type {
+class ValueType extends Type {
   constructor({only = null, except = null} = {}) {
     super()
     if(only) this.only = Array.isArray(only) ? only : [only]
@@ -19,3 +19,5 @@ export default class ValueType extends Type {
     )
   }
 }
+
+export default ValueType

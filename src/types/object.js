@@ -1,6 +1,6 @@
 import Type from '~/type'
 
-export default class ObjectType extends Type {
+class ObjectType extends Type {
   constructor(structure = null, options = {}) {
     super(options)
     if(structure !== null) this.structure = structure
@@ -21,3 +21,5 @@ export default class ObjectType extends Type {
     }
   }
 }
+
+export default ObjectType

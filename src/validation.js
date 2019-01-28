@@ -1,7 +1,13 @@
 import Type from '~/type'
 import Errors from '~/errors'
 
-export default class Validation {
+/**
+ * Creates a new Validation.
+ * @class Validation
+ * @param {Type} type The validation type.
+ * @param {*} value The validation value.
+ */
+class Validation {
   constructor(type = new Type(), value = null) {
     this.type = type
     this.value = value
@@ -11,14 +17,26 @@ export default class Validation {
     this.delegated = false
   }
 
+  /**
+   * Equal to `true` if the validation has no error, `false` otherwise.
+   * @type boolean
+   */
   get succeed() {
     return this.errors.empty
   }
 
+  /**
+   * Equal to `true` if the validation has any error, `false` otherwise.
+   * @type boolean
+   */
   get failed() {
     return this.errors.any
   }
 
+  /**
+   * Equal to `'Valid'` if {@link Validation#succeed} is `true`, `'Invalid'` otherwise.
+   * @type string
+   */
   get state() {
     return this.succeed ? 'Valid' : 'Invalid'
   }
@@ -58,3 +76,5 @@ export default class Validation {
     return this
   }
 }
+
+export default Validation

@@ -10,6 +10,9 @@
     "build": "yarn build:node & yarn build:browser",
     "build:node": "parcel build src/index.js -t node --no-cache",
     "build:browser": "parcel build src/index.js -t browser -o browser.js --no-cache",
+    "docs": "rm -R docs/* && jsdoc src README.md -r -d docs -t node_modules/minami -e utf8 -c ./docs.json",
+    "docs:watch": "watch 'yarn docs' src",
+    "docs:serve": "yarn docs:watch & serve docs",
     "lint": "eslint src",
     "test": "jest",
     "test:report": ". .env && cc-test-reporter before-build && if yarn test; then cc-test-reporter after-build; fi",
@@ -46,12 +49,13 @@
   "eslintConfig": {
     "parser": "babel-eslint",
     "extends": "eslint:recommended",
+    "globals": {"require": false},
     "rules": {
       "semi": ["error", "never"],
       "complexity": ["error", 7],
       "no-multi-spaces": ["error"],
       "brace-style": ["error"],
-      "max-len": ["error", 90],
+      "max-len": ["error", {"code": 90, "ignoreComments": true}],
       "max-depth": ["error", 4],
       "max-lines": ["error", 300],
       "max-lines-per-function": ["error", 50],
@@ -69,6 +73,10 @@
     "babel-plugin-transform-glob-import": "^1.0.1",
     "eslint": "^5.12.1",
     "jest": "^24.0.0",
-    "parcel": "^1.11.0"
+    "jsdoc": "^3.5.5",
+    "minami": "^1.2.3",
+    "parcel": "^1.11.0",
+    "serve": "^10.1.1",
+    "watch": "^1.0.2"
   }
 }

@@ -1,6 +1,6 @@
 import Type from '~/type'
 
-export default class ArrayType extends Type {
+class ArrayType extends Type {
   constructor(structure = null, {
     length = null,
     minimum = null,
@@ -57,3 +57,5 @@ export default class ArrayType extends Type {
     }
   }
 }
+
+export default ArrayType

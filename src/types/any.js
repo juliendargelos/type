@@ -1,6 +1,6 @@
 import Type from '~/type'
 
-export default class AnyType extends Type {
+class AnyType extends Type {
   constructor({optional = true} = {}) {
     super({optional})
   }
@@ -15,3 +15,5 @@ export default class AnyType extends Type {
     'function'
   ]
 }
+
+export default AnyType

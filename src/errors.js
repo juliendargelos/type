@@ -1,6 +1,6 @@
 import Error from '~/error'
 
-export default class Errors extends Array {
+class Errors extends Array {
   constructor(validation = null) {
     super()
     this.validation = validation
@@ -40,3 +40,5 @@ export default class Errors extends Array {
     return this.join("\n")
   }
 }
+
+export default Errors

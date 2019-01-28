@@ -1,7 +1,7 @@
 import Type from '~/type'
 import Errors from '~/errors'
 
-export default class MixedType extends Type {
+class MixedType extends Type {
   constructor(...types) {
     super()
     this.types = types
@@ -20,3 +20,5 @@ export default class MixedType extends Type {
     }
   }
 }
+
+export default MixedType

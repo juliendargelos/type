@@ -1,6 +1,6 @@
 import Type from '~/type'
 
-export default class NumberType extends Type {
+class NumberType extends Type {
   constructor({
     integer = false,
     exclude = null,
@@ -57,3 +57,5 @@ export default class NumberType extends Type {
     )
   }
 }
+
+export default NumberType

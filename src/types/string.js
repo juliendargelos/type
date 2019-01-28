@@ -1,6 +1,6 @@
 import Type from '~/type'
 
-export default class StringType extends Type {
+class StringType extends Type {
   constructor({
     length = null,
     minimum = null,
@@ -54,3 +54,5 @@ export default class StringType extends Type {
     }
   }
 }
+
+export default StringType
