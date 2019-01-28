@@ -10,7 +10,7 @@
     "build": "yarn build:node & yarn build:browser",
     "build:node": "parcel build src/index.js -t node --no-cache",
     "build:browser": "parcel build src/index.js -t browser -o browser.js --no-cache",
-    "docs": "rm -R docs/* && jsdoc src README.md -r -d docs -t node_modules/minami -e utf8 -c ./docs.json",
+    "docs": "rm -R docs/* | jsdoc src README.md -r -d docs -t node_modules/minami -e utf8 -c ./docs.json",
     "docs:watch": "watch 'yarn docs' src",
     "docs:serve": "yarn docs:watch & serve docs",
     "lint": "eslint src",
