@@ -11,7 +11,7 @@
     "build:node": "parcel build src/index.js -t node --no-cache",
     "build:browser": "parcel build src/index.js -t browser -o browser.js --no-cache",
     "docs": "rm -R docs/* | jsdoc src README.md -r -d docs -t node_modules/minami -e utf8 -c ./jsdoc/configuration.json",
-    "docs:watch": "watch 'yarn docs' src",
+    "docs:watch": "watch 'yarn docs' src jsdocs",
     "docs:serve": "yarn docs:watch & serve docs",
     "lint": "eslint src",
     "test": "jest",
