@@ -5,6 +5,7 @@ import Error from '~/error'
  * @class Errors
  * @extends Array
  * @param {Validation} [validation] The validation corresponding to errors.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array Array}
  */
 class Errors extends Array {
   constructor(validation = null) {
