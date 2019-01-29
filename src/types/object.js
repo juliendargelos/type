@@ -5,7 +5,7 @@ import Type from '~/type'
  * @class Object
  * @memberof Type
  * @extends Type
- * @extendsparams
+ * @inheritparams
  */
 class ObjectType extends Type {
   constructor(structure = null, options = {}) {

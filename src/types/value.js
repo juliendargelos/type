@@ -5,11 +5,11 @@ import Type from '~/type'
  * @class Value
  * @memberof Type
  * @extends Type
- * @extendsparams
+ * @inheritparams
  */
 class ValueType extends Type {
-  constructor({only = null, except = null} = {}) {
-    super()
+  constructor({only = null, except = null, ...options} = {}) {
+    super(options)
     if(only) this.only = Array.isArray(only) ? only : [only]
     if(except) this.except = Array.isArray(except) ? except : [except]
   }

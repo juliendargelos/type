@@ -5,7 +5,7 @@ import Type from '~/type'
  * @class NaN
  * @memberof Type
  * @extends Type
- * @extendsparams
+ * @inheritparams
  */
 class NanType extends Type {
   static primitives = ['nan']

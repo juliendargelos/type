@@ -5,7 +5,7 @@ import Type from '~/type'
  * @class Any
  * @memberof Type
  * @extends Type
- * @extendsparams
+ * @inheritparams
  */
 class AnyType extends Type {
   constructor({optional = true} = {}) {

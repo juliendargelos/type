@@ -4,7 +4,7 @@ import Validation from '~/validation'
  * Base type class.
  * @class Type
  * @param {object} [options]
- * @param {boolean} [options.optional=false] If set to true, type considers `undefined` and `null` as valid.
+ * @param {boolean} [options.optional=false] If set to `true`, type considers `undefined` and `null` as valid.
  */
 class Type {
   constructor({optional = false} = {}) {

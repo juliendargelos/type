@@ -1,5 +1,3 @@
-'use strict';
-
 function _typeof(obj) {
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
     _typeof = function (obj) {
@@ -708,4 +706,4 @@ Object.values(types).forEach(function (type) {
   return Type.register(type);
 });
 
-module.exports = Type;
+export default Type;

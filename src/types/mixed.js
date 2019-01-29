@@ -6,7 +6,7 @@ import Errors from '~/errors'
  * @class Mixed
  * @memberof Type
  * @extends Type
- * @extendsparams
+ * @inheritparams
  */
 class MixedType extends Type {
   constructor(...types) {

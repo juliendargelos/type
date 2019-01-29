@@ -5,7 +5,7 @@ import Type from '~/type'
  * @class Number
  * @memberof Type
  * @extends Type
- * @extendsparams
+ * @inheritparams
  * @param {boolean} [options.integer=false] If set to `true`, the type will only validate integers.
  * @param {boolean|object} [options.exclude=false] If set to `true`, the type will not validate numbers equal to `minimum` or `maximum`. An object can be passed to separatly specify exlusion for `minimum` and `maximum`:
  * @param {boolean} [options.exclude.minimum=false] If set to `true`, the type will not validate numbers equal to `minimum`.

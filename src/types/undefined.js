@@ -5,7 +5,7 @@ import Type from '~/type'
  * @class Undefined
  * @memberof Type
  * @extends Type
- * @extendsparams
+ * @inheritparams
  */
 class UndefinedType extends Type {
   static primitives = ['undefined']
