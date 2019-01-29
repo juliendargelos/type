@@ -16,7 +16,7 @@
     "lint": "eslint src",
     "test": "jest",
     "test:report": ". .env && cc-test-reporter before-build && if yarn test; then cc-test-reporter after-build; fi",
-    "githooks:link": "ln -f .githooks/* .git/hooks && chmod +x .git/hooks/*"
+    "hooks:link": "ln -f .githooks/* .git/hooks && chmod +x .git/hooks/*"
   },
   "babel": {
     "presets": [
