@@ -5,7 +5,7 @@ import Type from '~/type'
  * @class Boolean
  * @memberof Type
  * @extends Type
- * @extends-params
+ * @extendsparams
  */
 class BooleanType extends Type {
   static primitives = ['boolean']

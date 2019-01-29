@@ -6,9 +6,10 @@ exports.defineTags = function(dictionary) {
     canHaveName: false,
     onTagged: (doclet, tag) => {
       if(!doclet.augmentsparams) doclet.augmentsparams = []
-      const path = tag.value || (doclet.augments && doclet.augments[0])
-      if(!path) throw '@augments, @extends, @augments-params or @extends-params must have a value.'
-      doclet.augmentsparams.push(path)
+      var [name, reverse] = (tag.value || '').split(':')
+      if(!name) name = doclet.augments && doclet.augments[0]
+      if(!name) throw '@augments, @extends, @augmentsparams or @extendsparams must have a value.'
+      doclet.augmentsparams.push({name, reverse: reverse === 'reverse'})
     }
   }
 
@@ -39,9 +40,9 @@ exports.handlers = {
       Object.keys(augmented).forEach(name => {
         var doclet = augmented[name];
 
-        if(doclet.augmentsparams.some(augmentedName => (
-          augmentedName !== name &&
-          augmented[augmentedName]
+        if(doclet.augmentsparams.some(augment => (
+          augment.name !== name &&
+          augmented[augment.name]
         ))) {
           return
         }
@@ -50,20 +51,22 @@ exports.handlers = {
         var params = {};
         doclet.params.forEach(param => { params[param.name] = param })
 
-        ;[...doclet.augmentsparams].reverse().forEach(augmentedName => {
+        ;[...doclet.augmentsparams].reverse().forEach(augment => {
           if(
-            augmentedName === name ||
-            !subjects[augmentedName] ||
-            !subjects[augmentedName].params
+            augment.name === name ||
+            !subjects[augment.name] ||
+            !subjects[augment.name].params
           ) {
             return
           }
 
-          ;[...subjects[augmentedName].params].reverse().forEach(augmentedParam => {
+          const spliceIndex = augment.reverse ? doclet.params.length : 0
+
+          ;[...subjects[augment.name].params].reverse().forEach(augmentedParam => {
             if(doclet.params[augmentedParam.name]) return
             const param = {...augmentedParam}
-            param.inherited = param.inherited || augmentedName
-            doclet.params.splice(0, 0, param)
+            param.inherited = param.inherited || augment.name
+            doclet.params.splice(spliceIndex, 0, param)
             params[param.name] = param
           })
         })

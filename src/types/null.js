@@ -5,7 +5,7 @@ import Type from '~/type'
  * @class Null
  * @memberof Type
  * @extends Type
- * @extends-params
+ * @extendsparams
  */
 class NullType extends Type {
   static primitives = ['null']

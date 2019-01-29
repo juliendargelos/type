@@ -5,7 +5,7 @@ import Type from '~/type'
  * @class String
  * @memberof Type
  * @extends Type
- * @extends-params
+ * @extendsparams
  */
 class StringType extends Type {
   constructor({

@@ -5,7 +5,7 @@ import Type from '~/type'
  * @class Value
  * @memberof Type
  * @extends Type
- * @extends-params
+ * @extendsparams
  */
 class ValueType extends Type {
   constructor({only = null, except = null} = {}) {

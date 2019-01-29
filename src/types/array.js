@@ -5,7 +5,8 @@ import Type from '~/type'
  * @class Array
  * @memberof Type
  * @extends Type
- * @extends-params
+ * @extendsparams :reverse
+ * @param {(Type[]|Type)?} [structure=null] The structure an array must have to be valid.
  */
 class ArrayType extends Type {
   constructor(structure = null, {
