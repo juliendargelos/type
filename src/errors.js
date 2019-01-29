@@ -3,6 +3,7 @@ import Error from '~/error'
 /**
  * Creates an array of {@link Error}.
  * @class Errors
+ * @extends Array
  * @param {Validation} [validation] The validation corresponding to errors.
  */
 class Errors extends Array {
