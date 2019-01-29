@@ -4,7 +4,9 @@
     "jsdoc/plugins/augmentsparams"
   ],
   "templates": {
-    "includeDate": false,
+    "default": {
+      "includeDate": false
+    },
     "cleverLinks": true,
     "monospaceLinks": true,
     "showInheritedInNav": false
