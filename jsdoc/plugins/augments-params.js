@@ -1,5 +1,5 @@
 exports.defineTags = function(dictionary) {
-  const augmentParams = {
+  const augmentparams = {
     mustHaveValue: false,
     mustNotHaveDescription: true,
     canHaveType: false,
@@ -12,8 +12,8 @@ exports.defineTags = function(dictionary) {
     }
   }
 
-  dictionary.defineTag('augments-params', augmentParams)
-  dictionary.defineTag('extends-params', augmentParams)
+  dictionary.defineTag('augmentsparams', augmentparams)
+  dictionary.defineTag('extendsparams', augmentparams)
 }
 
 exports.handlers = {
