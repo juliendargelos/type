@@ -1,5 +1,12 @@
 import Type from '~/type'
 
+/**
+ * Represents an array type.
+ * @class Array
+ * @memberof Type
+ * @extends Type
+ * @extends-params
+ */
 class ArrayType extends Type {
   constructor(structure = null, {
     length = null,

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>validation.js - Documentation</title>
+    <title>types/array.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">validation.js</h1>
+    <h1 class="page-title">types/array.js</h1>
     
 
     
@@ -40,93 +40,73 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import Type from '~/type'
-import Errors from '~/errors'
 
 /**
- * Creates a new Validation.
- * @class Validation
- * @param {Type} type The validation type.
- * @param {*} value The validation value.
+ * Represents an array type.
+ * @class Array
+ * @memberof Type
+ * @extends Type
+ * @extends-params
  */
-class Validation {
-  constructor(type = new Type(), value = null) {
-    this.type = type
-    this.value = value
-
-    /**
-     * Validation errors.
-     * @type Errors
-     */
-    this.errors = new Errors(this)
-    this.annotations = []
-    this.canceled = false
-    this.delegated = false
+class ArrayType extends Type {
+  constructor(structure = null, {
+    length = null,
+    minimum = null,
+    maximum = null,
+    ...options
+  } = {}) {
+    super(options)
+    if(structure !== null) this.structure = structure
+    if(length !== null) this.length = length
+    if(minimum !== null) this.minimum = minimum
+    if(maximum !== null) this.maximum = maximum
   }
 
-  /**
-   * Equal to `true` if the validation has no error, `false` otherwise.
-   * @type boolean
-   * @readonly
-   */
-  get succeed() {
-    return this.errors.empty
-  }
+  static primitives = ['array']
 
-  /**
-   * Equal to `true` if the validation has any error, `false` otherwise.
-   * @type boolean
-   * @readonly
-   */
-  get failed() {
-    return this.errors.any
-  }
+  static tests = {
+    length: ({value, errors, type: {length}}) => value.length !== length &amp;&amp; errors.add(
+      `length must be equal to ${length}, ` +
+      `got length equal to ${value.length}`
+    ),
 
-  /**
-   * Equal to `'Valid'` if {@link Validation#succeed} is `true`, `'Invalid'` otherwise.
-   * @type string
-   * @readonly
-   */
-  get state() {
-    return this.succeed ? 'Valid' : 'Invalid'
-  }
+    minimum: ({value, errors, type: {minimum}}) => value.length &lt; minimum &amp;&amp; errors.add(
+      `length must be greater than or equal to ${minimum}, ` +
+      `got length equal to ${value.length}`
+    ),
 
-  toString() {
-    var annotations = this.annotations.map(([k, v]) => `${k}: ${v}`).join(', ')
-    if(annotations) annotations = `[${annotations}] `
-    return `${annotations}${this.state} ${this.type} value ${Type.stringify(this.value)}`
-  }
+    maximum: ({value, errors, type: {maximum}}) => value.length > maximum &amp;&amp; errors.add(
+      `length must be lower than or equal to ${maximum}, ` +
+      `got length equal to ${value.length}`
+    ),
 
-  annotate(key, value) {
-    this.annotations.push([key, value])
-    return this
-  }
+    structure: (validation) => {
+      const structure = validation.type.structure
+      validation.test(`structure${Array.isArray(structure) ? 'Array' : 'Type'}`)
+      if(validation.errors.delegated) validation.errors.prepend('structure is invalid')
+    },
 
-  test(name, ...parameters) {
-    this.continue(this.type.constructor.tests[name], ...parameters)
-    return this
-  }
+    structureArray: ({value, errors, type: {structure}}) => {
+      structure.some((type, index) => type
+        .validate(value[index])
+        .annotate('index', index)
+        .delegate(errors)
+        .failed
+      )
+    },
 
-  continue(callback, ...parameters) {
-    if(!this.canceled &amp;&amp; !this.failed) callback.call(this, this, ...parameters)
-    return this
-  }
-
-  cancel() {
-    this.canceled = true
-    return this
-  }
-
-  throw() {
-    if(this.failed) throw this.errors.exception
-  }
-
-  delegate(errors) {
-    this.errors.delegate(errors)
-    return this
+    structureType: ({value, errors, type: {structure}}) => {
+      value.some((v, index) => structure
+        .validate(v)
+        .annotate('index', index)
+        .delegate(errors)
+        .failed
+      )
+    }
   }
 }
 
-export default Validation
+export default ArrayType
 </code></pre>
         </article>
     </section>

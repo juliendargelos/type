@@ -1,6 +1,13 @@
 import Type from '~/type'
 import Errors from '~/errors'
 
+/**
+ * Represents a mixed type.
+ * @class Mixed
+ * @memberof Type
+ * @extends Type
+ * @extends-params
+ */
 class MixedType extends Type {
   constructor(...types) {
     super()

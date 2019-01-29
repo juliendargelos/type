@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Validation - Documentation</title>
+    <title>Any - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Validation</h1>
+    <h1 class="page-title">Any</h1>
     
 
     
@@ -42,7 +42,9 @@
 <header>
     
         <h2>
-        Validation
+            <span class="ancestors"><a href="Type.html">Type</a>.</span>
+        
+        Any
         </h2>
         
     
@@ -56,14 +58,14 @@
 
     
 
-    <h4 class="name" id="Validation"><span class="type-signature"></span>new Validation<span class="signature">(type, value)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Any"><span class="type-signature"></span>new Any<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Creates a new Validation.</p>
+    <p>Represents any type.</p>
 </div>
 
 
@@ -99,7 +101,455 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="validation.js.html">validation.js</a>, <a href="validation.js.html#line4">line 4</a>
+        <a href="types_any.js.html">types/any.js</a>, <a href="types_any.js.html#line3">line 3</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                
+                
+                    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>optional</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>boolean</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>If set to true, type considers <code>undefined</code> and <code>null</code> as valid.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    
+    </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li><a href="Type.html">Type</a></li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="primitives"><span class="type-signature"></span>primitives<span class="type-signature"> :Array.&lt;<a href="Type.html#Primitive">Primitive</a>></span></h4>
+
+
+
+
+<div class="description">
+    <p>Allowed primitives.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Type.html#primitives">Type#primitives</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="type.js.html">type.js</a>, <a href="type.js.html#line18">line 18</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>Array.&lt;<a href="Type.html#Primitive">Primitive</a>></code></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="toString"><span class="type-signature"></span>toString<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Returns the string representation of the type.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Type.html#toString">Type#toString</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="type.js.html">type.js</a>, <a href="type.js.html#line163">line 163</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>string</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>String representation of the type.</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="valid"><span class="type-signature"></span>valid<span class="signature">(value)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Validates a value and check if it succeed. Shortcut for <code><a href="Type.html#validate"><code>Type#validate</code></a>(value).succeed</code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Type.html#valid">Type#valid</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="type.js.html">type.js</a>, <a href="type.js.html#line155">line 155</a>
     </li></ul></dd>
     
 
@@ -143,32 +593,6 @@
 
         <tr>
             
-                <td class="name"><code>type</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="Type.html">Type</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The validation type.</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>value</code></td>
             
 
@@ -186,7 +610,7 @@
             
 
             <td class="description last">
-                <p>The validation value.</p>
+                <p>The value to validate.</p>
                 
             </td>
         </tr>
@@ -208,183 +632,48 @@
 
 
 
-
-
-</div>
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
+<div class="section-returns">
+<h5>Returns:</h5>
 
         
-            
-<div class="section-members">
-<h4 class="name" id="errors"><span class="type-signature"></span>errors<span class="type-signature"> :<a href="Errors.html">Errors</a></span></h4>
 
-
-
-
-<div class="description">
-    <p>Validation errors.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="validation.js.html">validation.js</a>, <a href="validation.js.html#line19">line 19</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><code><a href="Errors.html">Errors</a></code></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</div>
-
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
         
-            
-<div class="section-members">
-<h4 class="name" id="failed"><span class="type-signature">(readonly) </span>failed<span class="type-signature"> :boolean</span></h4>
-
-
-
-
-<div class="description">
-    <p>Equal to <code>true</code> if the validation has any error, <code>false</code> otherwise.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="validation.js.html">validation.js</a>, <a href="validation.js.html#line39">line 39</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
 <span class="param-type"><code>boolean</code></span>
 
 
-        </li>
-    </ul>
+    </dd>
+</dl>
 
 
+<div class="param-desc">
+    <p>Equal to <code>true</code> if <code>value</code> is valid, <code>false</code> otherwise.</p>
+</div>
+
+    
+</div>
 
 
 
 </div>
-
         
             
-<div class="section-members">
-<h4 class="name" id="state"><span class="type-signature">(readonly) </span>state<span class="type-signature"> :string</span></h4>
+<div class="section-method">
 
+    
+
+    <h4 class="name" id="validate"><span class="type-signature"></span>validate<span class="signature">(value)</span><span class="type-signature"> &rarr; {<a href="Validation.html">Validation</a>}</span></h4>
+
+    
 
 
 
 <div class="description">
-    <p>Equal to <code>'Valid'</code> if <a href="Validation.html#succeed"><code>Validation#succeed</code></a> is <code>true</code>, <code>'Invalid'</code> otherwise.</p>
+    <p>Validates a value and returns the validation.</p>
 </div>
 
 
@@ -397,6 +686,11 @@
 
     
 
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Type.html#validate">Type#validate</a>
+    </li></ul></dd>
     
 
     
@@ -420,7 +714,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="validation.js.html">validation.js</a>, <a href="validation.js.html#line48">line 48</a>
+        <a href="type.js.html">type.js</a>, <a href="type.js.html#line130">line 130</a>
     </li></ul></dd>
     
 
@@ -433,99 +727,105 @@
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><code>string</code></span>
-
-
-        </li>
-    </ul>
 
 
 
 
 
-</div>
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
 
         
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
             
-<div class="section-members">
-<h4 class="name" id="succeed"><span class="type-signature">(readonly) </span>succeed<span class="type-signature"> :boolean</span></h4>
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>*</code></span>
 
 
+            
+            </td>
 
+            
 
-<div class="description">
-    <p>Equal to <code>true</code> if the validation has no error, <code>false</code> otherwise.</p>
-</div>
+            
 
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
+            <td class="description last">
+                <p>The value to validate.</p>
+                
+            </td>
+        </tr>
 
     
+    </tbody>
+</table>
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="validation.js.html">validation.js</a>, <a href="validation.js.html#line30">line 30</a>
-    </li></ul></dd>
-    
 
-    
 
-    
 
-    
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code><a href="Validation.html">Validation</a></code></span>
+
+
+    </dd>
 </dl>
 
 
+<div class="param-desc">
+    <p>A validation corresponding to <code>value</code>.</p>
+</div>
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><code>boolean</code></span>
-
-
-        </li>
-    </ul>
-
-
+    
+</div>
 
 
 
 </div>
-
         
-    
-
     
 
     

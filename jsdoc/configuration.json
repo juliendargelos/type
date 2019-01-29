@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    "plugins/markdown",
+    "jsdoc/plugins/augments-params"
+  ],
+  "templates": {
+    "includeDate": false,
+    "cleverLinks": true,
+    "monospaceLinks": true,
+    "showInheritedInNav": false
+  }
+}

@@ -1,5 +1,12 @@
 import Type from '~/type'
 
+/**
+ * Represents an string type.
+ * @class String
+ * @memberof Type
+ * @extends Type
+ * @extends-params
+ */
 class StringType extends Type {
   constructor({
     length = null,

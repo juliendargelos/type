@@ -1,3 +1,9 @@
+/**
+ * Creates an error.
+ * @class Error
+ * @param {string} message The error message.
+ * @param {Validation} [validation] The validation corresponding to the error.
+ */
 class Error {
   constructor(message, validation = null) {
     this.message = message

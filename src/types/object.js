@@ -1,5 +1,12 @@
 import Type from '~/type'
 
+/**
+ * Represents an object type.
+ * @class Object
+ * @memberof Type
+ * @extends Type
+ * @extends-params
+ */
 class ObjectType extends Type {
   constructor(structure = null, options = {}) {
     super(options)

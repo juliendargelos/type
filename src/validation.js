@@ -11,6 +11,11 @@ class Validation {
   constructor(type = new Type(), value = null) {
     this.type = type
     this.value = value
+
+    /**
+     * Validation errors.
+     * @type Errors
+     */
     this.errors = new Errors(this)
     this.annotations = []
     this.canceled = false
@@ -20,6 +25,7 @@ class Validation {
   /**
    * Equal to `true` if the validation has no error, `false` otherwise.
    * @type boolean
+   * @readonly
    */
   get succeed() {
     return this.errors.empty
@@ -28,6 +34,7 @@ class Validation {
   /**
    * Equal to `true` if the validation has any error, `false` otherwise.
    * @type boolean
+   * @readonly
    */
   get failed() {
     return this.errors.any
@@ -36,6 +43,7 @@ class Validation {
   /**
    * Equal to `'Valid'` if {@link Validation#succeed} is `true`, `'Invalid'` otherwise.
    * @type string
+   * @readonly
    */
   get state() {
     return this.succeed ? 'Valid' : 'Invalid'

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>validation.js - Documentation</title>
+    <title>types/number.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">validation.js</h1>
+    <h1 class="page-title">types/number.js</h1>
     
 
     
@@ -40,93 +40,80 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import Type from '~/type'
-import Errors from '~/errors'
 
 /**
- * Creates a new Validation.
- * @class Validation
- * @param {Type} type The validation type.
- * @param {*} value The validation value.
+ * Represents a number type.
+ * @class Number
+ * @memberof Type
+ * @extends Type
+ * @extends-params
+ * @param {boolean} [options.integer=false] If set to `true`, the type will only validate integers.
+ * @param {boolean|object} [options.exclude=false] If set to `true`, the type will not validate numbers equal to `minimum` or `maximum`. An object can be passed to separatly specify exlusion for `minimum` and `maximum`:
+ * @param {boolean} [options.exclude.minimum=false] If set to `true`, the type will not validate numbers equal to `minimum`.
+ * @param {boolean} [options.exclude.maximum=false] If set to `true`, the type will not validate numbers equal to `maximum`.
+ * @param {boolean?} [options.finite=null] If set to `true`, the type will validate any number except `Infinity` and `-Infinity`, if set to `false`, the type will only validate `Infinity` and `-Infinity`.
+ * @param {number?} [options.minimum=null] If a value is given, the type will only validate numbers that are greater than (or, depending on `exclude`, equal to) the given value.
+ * @param {number?} [options.maximum=null] If a value is given, the type will only validate numbers that are lower than (or, depending on `exclude`, equal to) the given value.
  */
-class Validation {
-  constructor(type = new Type(), value = null) {
-    this.type = type
-    this.value = value
-
-    /**
-     * Validation errors.
-     * @type Errors
-     */
-    this.errors = new Errors(this)
-    this.annotations = []
-    this.canceled = false
-    this.delegated = false
+class NumberType extends Type {
+  constructor({
+    integer = false,
+    exclude = false,
+    finite = null,
+    minimum = null,
+    maximum = null,
+    ...options
+  } = {}) {
+    super(options)
+    if(integer) this.integer = true
+    if(exclude) this.exclude = exclude
+    if(finite !== null) this.finite = !!finite
+    if(minimum !== null) this.minimum = minimum
+    if(maximum !== null) this.maximum = maximum
   }
 
-  /**
-   * Equal to `true` if the validation has no error, `false` otherwise.
-   * @type boolean
-   * @readonly
-   */
-  get succeed() {
-    return this.errors.empty
+  static primitives = ['number']
+
+  static tests = {
+    integer: ({value, errors}) => {
+      if(Math.floor(value) !== value) errors.add('must be an integer')
+    },
+
+    finite: ({value, errors, type: {finite}}) => {
+      if(finite !== (value !== Infinity &amp;&amp; value !== -Infinity)) errors.add(
+        `must be ${finite ? '' : 'in'}finite`
+      )
+    },
+
+    minimum: ({value, errors, type: {minimum, excludeMinimum}}) => {
+      if(value &lt; minimum || value === minimum &amp;&amp; excludeMinimum) errors.add(
+        `must be greater than${excludeMinimum ? '' : ' or equal to'}${minimum}`
+      )
+    },
+
+    maximum: ({value, errors, type: {maximum, excludeMaximum}}) => {
+      if(value > maximum || value === maximum &amp;&amp; excludeMaximum) errors.add(
+        `must be lower than${excludeMaximum ? '' : ' or equal to'} ${maximum}`
+      )
+    }
   }
 
-  /**
-   * Equal to `true` if the validation has any error, `false` otherwise.
-   * @type boolean
-   * @readonly
-   */
-  get failed() {
-    return this.errors.any
+  get excludeMinimum() {
+    return (
+      this.exclude === true ||
+      (this.exclude &amp;&amp; this.exclude.minimum)
+    )
   }
 
-  /**
-   * Equal to `'Valid'` if {@link Validation#succeed} is `true`, `'Invalid'` otherwise.
-   * @type string
-   * @readonly
-   */
-  get state() {
-    return this.succeed ? 'Valid' : 'Invalid'
-  }
-
-  toString() {
-    var annotations = this.annotations.map(([k, v]) => `${k}: ${v}`).join(', ')
-    if(annotations) annotations = `[${annotations}] `
-    return `${annotations}${this.state} ${this.type} value ${Type.stringify(this.value)}`
-  }
-
-  annotate(key, value) {
-    this.annotations.push([key, value])
-    return this
-  }
-
-  test(name, ...parameters) {
-    this.continue(this.type.constructor.tests[name], ...parameters)
-    return this
-  }
-
-  continue(callback, ...parameters) {
-    if(!this.canceled &amp;&amp; !this.failed) callback.call(this, this, ...parameters)
-    return this
-  }
-
-  cancel() {
-    this.canceled = true
-    return this
-  }
-
-  throw() {
-    if(this.failed) throw this.errors.exception
-  }
-
-  delegate(errors) {
-    this.errors.delegate(errors)
-    return this
+  get excludeMaximum() {
+    return (
+      this.exclude === true ||
+      (this.exclude &amp;&amp; this.exclude.maximum)
+    )
   }
 }
 
-export default Validation
+export default NumberType
 </code></pre>
         </article>
     </section>

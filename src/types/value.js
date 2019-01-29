@@ -1,5 +1,12 @@
 import Type from '~/type'
 
+/**
+ * Represents a specific value type.
+ * @class Value
+ * @memberof Type
+ * @extends Type
+ * @extends-params
+ */
 class ValueType extends Type {
   constructor({only = null, except = null} = {}) {
     super()

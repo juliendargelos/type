@@ -3,7 +3,7 @@ import Validation from '~/validation'
 /**
  * Base type class.
  * @class Type
- * @param {object} options
+ * @param {object} [options]
  * @param {boolean} [options.optional=false] If set to true, type considers `undefined` and `null` as valid.
  */
 class Type {
@@ -11,7 +11,12 @@ class Type {
     if(optional) this.optional = true
   }
 
+  /**
+   * Allowed primitives.
+   * @type Primitive[]
+   */
   static primitives = []
+
   static tests = {}
   static all = []
 
@@ -49,13 +54,29 @@ class Type {
   }
 
   /**
+   * A string which represents the primitive type of a `value`:
+   *
+   * | primitive | condition (from strongest to lowest priority) |
+   * |-----------|-----------------------------------------------|
+   * | null      | `value === null`                              |
+   * | nan       | `typeof value === 'number' && isNaN(value)`   |
+   * | array     | `Array.isArray(value)`                        |
+   * | undefined | `typeof value === 'undefined'`                |
+   * | boolean   | `typeof value === 'boolean'`                  |
+   * | number    | `typeof value === 'number'`                   |
+   * | string    | `typeof value === 'string'`                   |
+   * | object    | `typeof value === 'object'`                   |
+   * | function  | `typeof value === 'function'`                 |
+   *
+   * @typedef {string} Primitive
+   * @memberof Type
+   * @alias Primitive
+   */
+
+  /**
    * Returns the primitive type of the given value.
    * @param {*} value The value to evaluate.
-   * @return {string} The primitive type of `value`:
-   * - If the value is equal to `null`: `'null'`.
-   * - If the value is equal to `NaN`: `'nan'`.
-   * - If the value is an `Array`: `'array'`.
-   * - For any other value: `typeof value`.
+   * @return {Primitive} The primitive type of the given value.
    */
   static primitive(value) {
     if(value === null) return 'null'
@@ -127,7 +148,7 @@ class Type {
   }
 
   /**
-   * Validates a value and check if it succeed. Shortcut for `type.validate(value).succeed`.
+   * Validates a value and check if it succeed. Shortcut for `{@link Type#validate}(value).succeed`.
    * @param {*} value The value to validate.
    * @return {boolean} Equal to `true` if `value` is valid, `false` otherwise.
    */
