@@ -6,10 +6,10 @@ exports.defineTags = function(dictionary) {
     canHaveName: false,
     onTagged: (doclet, tag) => {
       if(!doclet.augmentsparams) doclet.augmentsparams = []
-      var [name, reverse] = (tag.value || '').split(':')
+      var [name, offset] = (tag.value || '').split(':')
       if(!name) name = doclet.augments && doclet.augments[0]
       if(!name) throw '@augments, @extends, @augmentsparams or @extendsparams must have a value.'
-      doclet.augmentsparams.push({name, reverse: reverse === 'reverse'})
+      doclet.augmentsparams.push({name, offset: parseInt(offset, 10) || 0})
     }
   }
 
@@ -47,9 +47,7 @@ exports.handlers = {
           return
         }
 
-        doclet.params = doclet.params || [];
-        var params = {};
-        doclet.params.forEach(param => { params[param.name] = param })
+        if(!doclet.params) doclet.params = []
 
         ;[...doclet.augmentsparams].reverse().forEach(augment => {
           if(
@@ -60,14 +58,11 @@ exports.handlers = {
             return
           }
 
-          const spliceIndex = augment.reverse ? doclet.params.length : 0
-
           ;[...subjects[augment.name].params].reverse().forEach(augmentedParam => {
             if(doclet.params[augmentedParam.name]) return
             const param = {...augmentedParam}
             param.inherited = param.inherited || augment.name
-            doclet.params.splice(spliceIndex, 0, param)
-            params[param.name] = param
+            doclet.params.splice(augment.offset, 0, param)
           })
         })
 

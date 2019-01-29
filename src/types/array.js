@@ -5,8 +5,11 @@ import Type from '~/type'
  * @class Array
  * @memberof Type
  * @extends Type
- * @extendsparams :reverse
- * @param {(Type[]|Type)?} [structure=null] The structure an array must have to be valid.
+ * @extendsparams :1
+ * @param {(Type[]|Type)?} [structure=null] The structure an array must have to be valid. If a {@link Type} is given, all array values must be valid for the given type. If a `Array.<{@link Type}>` is given, each value of the array must be valid for the given type at the same index. Overflow values are ignored.
+ * @param {number?} [options.length=null] If provided, the type will only validate arrays with a length equal to the given value.
+ * @param {number?} [options.minimum=null] If provided, the type will only validate arrays with a length greater than or equal to the given value.
+ * @param {number?} [options.maximum=null] If provided, the type will only validate arrays with a length lower than or equal to the given value.
  */
 class ArrayType extends Type {
   constructor(structure = null, {
