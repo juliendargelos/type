@@ -28,7 +28,7 @@ then
   git add dist
 fi
 
-if git diff --cached --name-only | grep '^src/.*\|README\.md$'
+if git diff --cached --name-only | grep '^src/.*\|jsdoc/.*\|README\.md$'
 then
   if ! yarn docs
   then
