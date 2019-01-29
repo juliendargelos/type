@@ -1,7 +1,7 @@
 {
   "plugins": [
     "plugins/markdown",
-    "jsdoc/plugins/augments-params"
+    "jsdoc/plugins/augmentsparams"
   ],
   "templates": {
     "includeDate": false,
