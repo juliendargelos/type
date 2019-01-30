@@ -1,4 +1,6 @@
 import Validation from '~/validation'
+import Generator from '~/generator'
+import * as utils from '~/utils'
 
 /**
  * Base type class.
@@ -11,14 +13,26 @@ class Type {
     if(optional) this.optional = true
   }
 
+  static primitive = utils.primitive
+  static stringify = utils.stringify
+
   /**
-   * Allowed primitives.
+   * Allowed primitives. The type only validates values with the given primitives. If empty, the type validates any primitive.
+   * @memberof Type
+   * @static
    * @type Primitive[]
+   * @default []
    */
   static primitives = []
 
+  /**
+   * Tests performed by the type to validate a value.
+   * @memberof Type
+   * @static
+   * @type Object.<string, function>
+   * @default {}
+   */
   static tests = {}
-  static all = []
 
   /**
    * Registers a type class so it become accessible from {@link Type}.
@@ -46,76 +60,16 @@ class Type {
     }
 
     const name = type.toString()
-    this.all.push(type)
     this[name] = type
-    this[name[0].toLowerCase() + name.substring(1)] = require('~/generator').of(type)
+    this[name[0].toLowerCase() + name.substring(1)] = new Generator(type)
 
     return type
   }
 
   /**
-   * A string which represents the primitive type of a `value`:
-   *
-   * | primitive | condition (from strongest to lowest priority) |
-   * |-----------|-----------------------------------------------|
-   * | null      | `value === null`                              |
-   * | nan       | `typeof value === 'number' && isNaN(value)`   |
-   * | array     | `Array.isArray(value)`                        |
-   * | undefined | `typeof value === 'undefined'`                |
-   * | boolean   | `typeof value === 'boolean'`                  |
-   * | number    | `typeof value === 'number'`                   |
-   * | string    | `typeof value === 'string'`                   |
-   * | object    | `typeof value === 'object'`                   |
-   * | function  | `typeof value === 'function'`                 |
-   *
-   * @typedef {string} Primitive
-   * @memberof Type
-   * @alias Primitive
+   * Returns the string representation of type.
+   * @return {string} String representation of type.
    */
-
-  /**
-   * Returns the primitive type of the given value.
-   * @param {*} value The value to evaluate.
-   * @return {Primitive} The primitive type of the given value.
-   */
-  static primitive(value) {
-    if(value === null) return 'null'
-    if(typeof value === 'number' && isNaN(value)) return 'nan'
-    if(Array.isArray(value)) return 'array'
-    return typeof value
-  }
-
-  /**
-   * Returns a string representation of the given value.
-   * @param {*} value The value to stringify.
-   * @return {string} A string representation of `value`.
-   * @example
-   * Type.stringify(null)
-   * // 'null'
-   *
-   * Type.stringify({foo: 'bar', bar: 2.2})
-   * // '{foo: \'bar\', bar: 2.2}'
-   *
-   * Type.stringify([NaN, Infinity, undefined, true, () => {}])
-   * // '[NaN, Infinity, undefined, true, function() {}]'
-   */
-  static stringify(value) {
-    switch(this.primitive(value)) {
-      case 'object':
-        return `{${
-          Object.entries(value).map(([k, v]) => `${k}: ${this.stringify(v)}`).join(', ')
-        }}`
-      case 'array':
-        return `[${
-          value.map(v => this.stringify(v)).join(', ')
-        }]`
-      case 'string':
-        return `'${value}'`
-      default:
-        return `${value}`
-    }
-  }
-
   static toString() {
     const i = this.name.length - 4
     const name = this.name
@@ -142,7 +96,7 @@ class Type {
       }
 
       Object.keys(this.constructor.tests).forEach(test => {
-        if(test in this) validation.test(test, this)
+        if(test in this) validation.test(test)
       })
     })
   }
@@ -157,8 +111,8 @@ class Type {
   }
 
   /**
-   * Returns the string representation of the type.
-   * @return {string} String representation of the type.
+   * Returns the string representation of type class.
+   * @return {string} String representation of type class.
    */
   toString() {
     const options = Object.values(this).length

@@ -43,6 +43,10 @@ class Errors extends Array {
     return this
   }
 
+  /**
+   * Returns the string representation of errors.
+   * @return {string} String representation of errors.
+   */
   toString() {
     return this.join("\n")
   }

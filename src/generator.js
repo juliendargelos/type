@@ -1,31 +1,10 @@
-import Type from '~/type'
-
-class Generator extends Type {
+class Generator {
   constructor(type) {
-    return Object.defineProperties((...args) => new type(...args), {
-      ...Generator.descriptors,
-      constructor: {value: type},
-      type: {value: new type()}
-    })
+    return Object.setPrototypeOf(Object.defineProperties(
+      (...args) => new type(...args),
+      Object.getOwnPropertyDescriptors(new type())
+    ), type.prototype)
   }
-
-  static descriptors = Object.getOwnPropertyDescriptors(Generator.prototype)
-
-  validate(value) {
-    return this.type.validate(value)
-  }
-
-  valid(value) {
-    return this.type.valid(value)
-  }
-
-  toString() {
-    return this.type.toString()
-  }
-}
-
-export function of(type) {
-  return new Generator(type)
 }
 
 export default Generator

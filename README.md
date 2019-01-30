@@ -5,6 +5,23 @@
 
 A type checking javascript library.
 
-- [Repository](https://github.com/juliendargelos/type)
+### Install
+
+With yarn:
+
+```shell
+yarn add @juliendargelos/type
+```
+
+With npm:
+
+```shell
+npm install @juliendargelos/type --save
+```
+
+### Links
+
+- [Getting started](https://juliendargelos.github.io/type/tutorial-getting-started)
 - [Documentation](https://juliendargelos.github.io/type)
+- [Repository](https://github.com/juliendargelos/type)
 - [Issues](https://github.com/juliendargelos/type/issues)

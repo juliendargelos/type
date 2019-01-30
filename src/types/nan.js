@@ -2,8 +2,7 @@ import Type from '~/type'
 
 /**
  * Represents a nan (*Not A Number*) type.
- * @class NaN
- * @memberof Type
+ * @class Nan
  * @extends Type
  * @inheritparams
  */

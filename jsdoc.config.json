@@ -4,6 +4,7 @@
   },
   "opts": {
     "destination": "docs",
+    "tutorials": "tutorials",
     "recurse": true,
     "template": "node_modules/minami",
     "encoding": "utf8"

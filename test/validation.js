@@ -10,7 +10,7 @@ test('throws if any error', () => {
   expect(() => new Validation()
     .continue(({errors}) => errors.add('foo'))
     .throw()
-  ).toThrow({message: 'Invalid Type value null: foo.'})
+  ).toThrow({message: 'Invalid value null: foo.'})
 })
 
 test('returns an invalid string if failed', () => {

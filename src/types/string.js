@@ -3,7 +3,6 @@ import Type from '~/type'
 /**
  * Represents an string type.
  * @class String
- * @memberof Type
  * @extends Type
  * @inheritparams
  */
