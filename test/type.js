@@ -4,18 +4,12 @@ test('adds constructor and generator function when registering type', () => {
   class CustomType extends Type {}
   Type.register(CustomType)
   expect(Type.Custom).toBe(CustomType)
-  expect(Type.custom).toBeInstanceOf(Function)
+  expect(Type.custom).toBeInstanceOf(CustomType)
+  expect(Type.custom()).toBeInstanceOf(CustomType)
 })
 
 test('throws when registering invalid type', () => {
   expect(() => Type.register(null)).toThrow()
-})
-
-test('stringifies', () => {
-  expect(Type.stringify({
-    foo: 'bar',
-    bar: [{bar: 'foo'}, null, Infinity, NaN, () => {}],
-  })).toBe("{foo: 'bar', bar: [{bar: 'foo'}, null, Infinity, NaN, function () {}]}")
 })
 
 test('string is Type(optional: true)', () => {

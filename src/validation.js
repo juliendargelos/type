@@ -132,7 +132,7 @@ class Validation {
   throw() {
     if(this.failed) throw this.errors.exception
   }
-  
+
   /**
    * Add all validation errors to the given {@link Errors} or Array.
    * @param {Errors|Array} errors The {@link Errors} or Array to feed with errors.

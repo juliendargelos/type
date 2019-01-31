@@ -46,15 +46,16 @@ function primitive(value) {
  * Type.stringify([NaN, Infinity, undefined, true, () => {}])
  * // '[NaN, Infinity, undefined, true, function() {}]'
  */
-function stringify(value) {
+function stringify(value, depth = 0) {
+  if(depth >= 10) return primitive(value)
   switch(primitive(value)) {
     case 'object':
       return `{${
-        Object.entries(value).map(([k, v]) => `${k}: ${stringify(v)}`).join(', ')
+        Object.entries(value).map(([k, v]) => `${k}: ${stringify(v, depth + 1)}`).join(', ')
       }}`
     case 'array':
       return `[${
-        value.map(v => stringify(v)).join(', ')
+        value.map(v => stringify(v, depth + 1)).join(', ')
       }]`
     case 'string':
       return `'${value}'`

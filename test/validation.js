@@ -1,3 +1,4 @@
+import Type from '~'
 import Validation from '~/validation'
 
 test('does not throw if no error', () => {
@@ -38,4 +39,21 @@ test('does not continue if failed', () => {
     .continue(callback)
 
   expect(callback).not.toBeCalled()
+})
+
+test('does test if type provided', () => {
+  class CustomType extends Type {
+    static tests = {foo: jest.fn()}
+  }
+
+  new Validation(new CustomType()).test('foo')
+  expect(CustomType.tests.foo).toBeCalled()
+})
+
+test('does not throw when testing without type', () => {
+  expect(() => new Validation().test('foo')).not.toThrow()
+})
+
+test('string includes type name if provided', () => {
+  expect(new Validation(Type.any).toString()).toMatch('Any(optional: true)')
 })
