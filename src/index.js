@@ -12,114 +12,69 @@ import ValueType from '~/types/value'
 import MixedType from '~/types/mixed'
 
 /**
- * @member {Generator.<Any>} any
- * @memberof Type
- */
-/**
- * @class Any
+ * @member {Generator.<Type.Any>} any
  * @memberof Type
  */
 Type.register(AnyType)
 
 /**
- * @member {Generator.<Undefined>} undefined
- * @memberof Type
- */
-/**
- * @class Undefined
+ * @member {Generator.<Type.Undefined>} undefined
  * @memberof Type
  */
 Type.register(UndefinedType)
 
 /**
- * @member {Generator.<Null>} null
- * @memberof Type
- */
-/**
- * @class Null
+ * @member {Generator.<Type.Null>} null
  * @memberof Type
  */
 Type.register(NullType)
 
 /**
- * @member {Generator.<Nan>} nan
- * @memberof Type
- */
-/**
- * @class Nan
+ * @member {Generator.<Type.Nan>} nan
  * @memberof Type
  */
 Type.register(NanType)
 
 /**
- * @member {Generator.<Boolean>} boolean
- * @memberof Type
- */
-/**
- * @class Boolean
+ * @member {Generator.<Type.Boolean>} boolean
  * @memberof Type
  */
 Type.register(BooleanType)
 
 /**
- * @member {Generator.<Number>} number
- * @memberof Type
- */
-/**
- * @class Number
+ * @member {Generator.<Type.Number>} number
  * @memberof Type
  */
 Type.register(NumberType)
 
 /**
- * @member {Generator.<String>} string
- * @memberof Type
- */
-/**
- * @class String
+ * @member {Generator.<Type.String>} string
  * @memberof Type
  */
 Type.register(StringType)
 
 /**
- * @member {Generator.<Array>} array
- * @memberof Type
- */
-/**
- * @class Array
+ * @member {Generator.<Type.Array>} array
  * @memberof Type
  */
 Type.register(ArrayType)
 
 /**
- * @member {Generator.<Object>} object
- * @memberof Type
- */
-/**
- * @class Object
+ * @member {Generator.<Type.Object>} object
  * @memberof Type
  */
 Type.register(ObjectType)
 
 /**
- * @member {Generator.<Value>} value
- * @memberof Type
- */
-/**
- * @class Value
+ * @member {Generator.<Type.Value>} value
  * @memberof Type
  */
 Type.register(ValueType)
 
 /**
- * @member {Generator.<Mixed>} mixed
- * @memberof Type
- */
-/**
- * @class Mixed
+ * @member {Generator.<Type.Mixed>} mixed
  * @memberof Type
  */
 Type.register(MixedType)
-
 
 export default Type

@@ -3,6 +3,7 @@ import Type from '~/type'
 /**
  * Represents a specific value type.
  * @class Value
+ * @memberof Type
  * @extends Type
  * @inheritparams
  */

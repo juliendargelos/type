@@ -3,6 +3,7 @@ import Type from '~/type'
 /**
  * Represents a nan (*Not A Number*) type.
  * @class Nan
+ * @memberof Type
  * @extends Type
  * @inheritparams
  */

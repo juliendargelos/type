@@ -4,6 +4,7 @@ import Errors from '~/errors'
 /**
  * Represents a mixed type.
  * @class Mixed
+ * @memberof Type
  * @extends Type
  * @inheritparams
  */
