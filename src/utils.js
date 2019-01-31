@@ -51,11 +51,15 @@ function stringify(value, depth = 0) {
   switch(primitive(value)) {
     case 'object':
       return `{${
-        Object.entries(value).map(([k, v]) => `${k}: ${stringify(v, depth + 1)}`).join(', ')
+        Object.entries(value)
+          .map(([k, v]) => `${k}: ${stringify(v, depth + 1)}`)
+          .join(', ')
       }}`
     case 'array':
       return `[${
-        value.map(v => stringify(v, depth + 1)).join(', ')
+        value
+          .map(v => stringify(v, depth + 1))
+          .join(', ')
       }]`
     case 'string':
       return `'${value}'`
