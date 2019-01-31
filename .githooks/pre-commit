@@ -9,7 +9,7 @@ then
   fi
 fi
 
-if [git diff --cached --name-only -w -G'(^[^\*# /])|(^#\w)|(^\s+[^\*#/])' | grep '^src/'] || [git diff --cached --name-only | grep '^test/']
+if [[ $(git diff --cached --name-only -w -G'(^[^\*# /])|(^#\w)|(^\s+[^\*#/])' | grep '^src/') || $(git diff --cached --name-only | grep '^test/') ]]
 then
   if ! yarn test:report
   then
@@ -18,7 +18,7 @@ then
   fi
 fi
 
-if git diff --cached --name-only -w -G'(^[^\*# /])|(^#\w)|(^\s+[^\*#/])' | grep '^src/'
+if git diff --cached --name-only -w -G'(^[^\*# /])|(^#\w)|(^\s+[^\*#/])' | grep '^src/.*\|rollup\.config\.js$'
 then
   if ! yarn build
   then

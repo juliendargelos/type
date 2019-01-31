@@ -6,10 +6,19 @@ import path from 'path'
 import glob from 'glob'
 import pkg from './package.json'
 
+const input = glob.sync('src/**/*.js').reduce((input, file) => ({
+  ...input,
+  [file.replace(/^src\//, '').replace(/\.js$/, '')]: file
+}), {})
+
 export default [
   {
     input: 'src/index.js',
-    output: {file: pkg.browser, name: 'Type', format: 'umd'},
+    output: {
+      file: pkg.browser,
+      format: 'umd',
+      name: 'Type'
+    },
     plugins: [
       resolve(),
       babel({exclude: ['node_modules/**']}),
@@ -18,15 +27,22 @@ export default [
     ]
   },
   {
-    input: glob.sync('src/**/*.js').reduce((input, file) => ({...input, [file.replace(/^src\//, '').replace(/\.js$/, '')]: file}), {}),
-    output: {dir: path.dirname(pkg.main), format: 'cjs'},
+    input,
+    output: {
+      dir: path.dirname(pkg.main),
+      format: 'cjs'
+    },
     plugins: [
       babel({exclude: ['node_modules/**']})
     ]
   },
   {
-    input: glob.sync('src/**/*.js').reduce((input, file) => ({...input, [file.replace(/^src\//, '').replace(/\.js$/, '')]: file}), {}),
-    output: {dir: path.dirname(pkg.module), format: 'es', entryFileNames: '[name].mjs'},
+    input,
+    output: {
+      dir: path.dirname(pkg.module),
+      format: 'es',
+      entryFileNames: '[name].mjs'
+    },
     plugins: [
       babel({exclude: ['node_modules/**']})
     ]
