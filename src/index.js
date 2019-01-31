@@ -16,7 +16,7 @@ import MixedType from '~/types/mixed'
  * @memberof Type
  */
 /**
- * @member {function} Any
+ * @class Any
  * @memberof Type
  */
 Type.register(AnyType)
@@ -26,7 +26,7 @@ Type.register(AnyType)
  * @memberof Type
  */
 /**
- * @member {function} Undefined
+ * @class Undefined
  * @memberof Type
  */
 Type.register(UndefinedType)
@@ -36,7 +36,7 @@ Type.register(UndefinedType)
  * @memberof Type
  */
 /**
- * @member {function} Null
+ * @class Null
  * @memberof Type
  */
 Type.register(NullType)
@@ -46,7 +46,7 @@ Type.register(NullType)
  * @memberof Type
  */
 /**
- * @member {function} Nan
+ * @class Nan
  * @memberof Type
  */
 Type.register(NanType)
@@ -56,7 +56,7 @@ Type.register(NanType)
  * @memberof Type
  */
 /**
- * @member {function} Boolean
+ * @class Boolean
  * @memberof Type
  */
 Type.register(BooleanType)
@@ -66,7 +66,7 @@ Type.register(BooleanType)
  * @memberof Type
  */
 /**
- * @member {function} Number
+ * @class Number
  * @memberof Type
  */
 Type.register(NumberType)
@@ -76,7 +76,7 @@ Type.register(NumberType)
  * @memberof Type
  */
 /**
- * @member {function} String
+ * @class String
  * @memberof Type
  */
 Type.register(StringType)
@@ -86,7 +86,7 @@ Type.register(StringType)
  * @memberof Type
  */
 /**
- * @member {function} Array
+ * @class Array
  * @memberof Type
  */
 Type.register(ArrayType)
@@ -96,7 +96,7 @@ Type.register(ArrayType)
  * @memberof Type
  */
 /**
- * @member {function} Object
+ * @class Object
  * @memberof Type
  */
 Type.register(ObjectType)
@@ -106,7 +106,7 @@ Type.register(ObjectType)
  * @memberof Type
  */
 /**
- * @member {function} Value
+ * @class Value
  * @memberof Type
  */
 Type.register(ValueType)
@@ -116,7 +116,7 @@ Type.register(ValueType)
  * @memberof Type
  */
 /**
- * @member {function} Mixed
+ * @class Mixed
  * @memberof Type
  */
 Type.register(MixedType)

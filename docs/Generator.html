@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Value - Documentation</title>
+    <title>Generator - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Value</h1>
+    <h1 class="page-title">Generator</h1>
     
 
     
@@ -42,7 +42,7 @@
 <header>
     
         <h2>
-        Value
+        Generator
         </h2>
         
     
@@ -56,14 +56,14 @@
 
     
 
-    <h4 class="name" id="Value"><span class="type-signature"></span>new Value<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Generator"><span class="type-signature"></span>new Generator<span class="signature">(type)</span><span class="type-signature"> &rarr; {<a href="Generator.html">Generator</a>.&lt;type>}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Represents a specific value type.</p>
+    <p>Type generator class.</p>
 </div>
 
 
@@ -99,7 +99,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="types_value.js.html">types/value.js</a>, <a href="types_value.js.html#line3">line 3</a>
+        <a href="generator.js.html">generator.js</a>, <a href="generator.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -131,8 +131,6 @@
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
         
 
@@ -145,105 +143,24 @@
 
         <tr>
             
-                <td class="name"><code>options</code></td>
+                <td class="name"><code>type</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>object</code></span>
+<span class="param-type"><code>function</code></span>
 
 
             
             </td>
 
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
             
 
             
 
             <td class="description last">
-                
-                
-                    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>optional</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>boolean</code></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    false
-                
-                </td>
-            
-
-            <td class="description last">
-                <p>If set to <code>true</code>, type considers <code>undefined</code> and <code>null</code> as valid.</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
+                <p>The type to use for generator.</p>
                 
             </td>
         </tr>
@@ -265,7 +182,48 @@
 
 
 
+<div class="section-returns">
+<h5>Returns:</h5>
 
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code><a href="Generator.html">Generator</a>.&lt;type></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>A generator that is also an instance of the given type.</p>
+</div>
+
+    
+</div>
+
+
+
+<div class="section-examples">
+<h5>Example</h5>
+
+    <pre class="prettyprint"><code>const number = new Generator(Type.Number)
+
+number.valid(2)
+// true
+
+number.valid('foo')
+// false
+
+number({minimum: 3}).valid(2)
+// false</code></pre>
+
+</div>
 
 </div>
     
@@ -278,6 +236,8 @@
 
 
     <ul>
+        <li>Function</li>
+    
         <li><a href="Type.html">Type</a></li>
     </ul>
 

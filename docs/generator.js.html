@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>types/boolean.js - Documentation</title>
+    <title>generator.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">types/boolean.js</h1>
+    <h1 class="page-title">generator.js</h1>
     
 
     
@@ -39,19 +39,42 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import Type from '~/type'
-
-/**
- * Represents a boolean type.
- * @class Boolean
+            <pre class="prettyprint source linenums"><code>/**
+ * Type generator class.
+ * @class Generator
+ * @extends Function
  * @extends Type
- * @inheritparams
+ * @param {function} type The type to use for generator.
+ * @return {Generator.&lt;type>} A generator that is also an instance of the given type.
+ * @example
+ * const number = new Generator(Type.Number)
+ *
+ * number.valid(2)
+ * // true
+ *
+ * number.valid('foo')
+ * // false
+ *
+ * number({minimum: 3}).valid(2)
+ * // false
  */
-class BooleanType extends Type {
-  static primitives = ['boolean']
+class Generator {
+  constructor(type) {
+    const instance = new type()
+    const generator = (...args) => new type(...args)
+    delete generator.length
+    delete generator.name
+    return Object.setPrototypeOf(Object.defineProperties(
+      generator,
+      {
+        ...Object.getOwnPropertyDescriptors(instance),
+        toString: {value: () => instance.toString()}
+      }
+    ), type.prototype)
+  }
 }
 
-export default BooleanType
+export default Generator
 </code></pre>
         </article>
     </section>
