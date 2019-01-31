@@ -11,6 +11,7 @@ var type = require('../type.js');
 /**
  * Represents a mixed type.
  * @class Mixed
+ * @memberof Type
  * @extends Type
  * @inheritparams
  */

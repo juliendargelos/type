@@ -11,6 +11,7 @@ var type = require('../type.js');
 /**
  * Represents an object type.
  * @class Object
+ * @memberof Type
  * @extends Type
  * @inheritparams
  */

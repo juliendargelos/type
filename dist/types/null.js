@@ -11,6 +11,7 @@ var type = require('../type.js');
 /**
  * Represents a null type.
  * @class Null
+ * @memberof Type
  * @extends Type
  * @inheritparams
  */

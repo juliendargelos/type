@@ -11,6 +11,7 @@ var type = require('../type.js');
 /**
  * Represents a boolean type.
  * @class Boolean
+ * @memberof Type
  * @extends Type
  * @inheritparams
  */

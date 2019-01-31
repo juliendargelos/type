@@ -16,126 +16,92 @@ var number = require('./types/number.js');
 var string = require('./types/string.js');
 var array = require('./types/array.js');
 var object = require('./types/object.js');
+var instance = require('./types/instance.js');
+var _function = require('./types/function.js');
+var _class = require('./types/class.js');
 var value = require('./types/value.js');
 var mixed = require('./types/mixed.js');
 
 /**
- * @member {Generator.<Any>} any
- * @memberof Type
- */
-
-/**
- * @member {function} Any
+ * @member {Generator.<Type.Any>} any
  * @memberof Type
  */
 
 type.register(any);
 /**
- * @member {Generator.<Undefined>} undefined
- * @memberof Type
- */
-
-/**
- * @member {function} Undefined
+ * @member {Generator.<Type.Undefined>} undefined
  * @memberof Type
  */
 
 type.register(_undefined);
 /**
- * @member {Generator.<Null>} null
- * @memberof Type
- */
-
-/**
- * @member {function} Null
+ * @member {Generator.<Type.Null>} null
  * @memberof Type
  */
 
 type.register(_null);
 /**
- * @member {Generator.<Nan>} nan
- * @memberof Type
- */
-
-/**
- * @member {function} Nan
+ * @member {Generator.<Type.Nan>} nan
  * @memberof Type
  */
 
 type.register(nan);
 /**
- * @member {Generator.<Boolean>} boolean
- * @memberof Type
- */
-
-/**
- * @member {function} Boolean
+ * @member {Generator.<Type.Boolean>} boolean
  * @memberof Type
  */
 
 type.register(boolean);
 /**
- * @member {Generator.<Number>} number
- * @memberof Type
- */
-
-/**
- * @member {function} Number
+ * @member {Generator.<Type.Number>} number
  * @memberof Type
  */
 
 type.register(number);
 /**
- * @member {Generator.<String>} string
- * @memberof Type
- */
-
-/**
- * @member {function} String
+ * @member {Generator.<Type.String>} string
  * @memberof Type
  */
 
 type.register(string);
 /**
- * @member {Generator.<Array>} array
- * @memberof Type
- */
-
-/**
- * @member {function} Array
+ * @member {Generator.<Type.Array>} array
  * @memberof Type
  */
 
 type.register(array);
 /**
- * @member {Generator.<Object>} object
- * @memberof Type
- */
-
-/**
- * @member {function} Object
+ * @member {Generator.<Type.Object>} object
  * @memberof Type
  */
 
 type.register(object);
 /**
- * @member {Generator.<Value>} value
+ * @member {Generator.<Type.Instance>} instance
  * @memberof Type
  */
 
+type.register(instance);
 /**
- * @member {function} Value
+ * @member {Generator.<Type.Function>} function
+ * @memberof Type
+ */
+
+type.register(_function);
+/**
+ * @member {Generator.<Type.Class>} class
+ * @memberof Type
+ */
+
+type.register(_class);
+/**
+ * @member {Generator.<Type.Value>} value
  * @memberof Type
  */
 
 type.register(value);
 /**
- * @member {Generator.<Mixed>} mixed
- * @memberof Type
- */
-
-/**
- * @member {function} Mixed
+ * @member {Generator.<Type.Mixed>} mixed
  * @memberof Type
  */
 

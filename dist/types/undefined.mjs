@@ -9,6 +9,7 @@ import Type from '../type.mjs';
 /**
  * Represents an undefined type.
  * @class Undefined
+ * @memberof Type
  * @extends Type
  * @inheritparams
  */

@@ -9,6 +9,7 @@ import Type from '../type.mjs';
 /**
  * Represents a mixed type.
  * @class Mixed
+ * @memberof Type
  * @extends Type
  * @inheritparams
  */

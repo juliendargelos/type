@@ -9,6 +9,7 @@ import Type from '../type.mjs';
 /**
  * Represents an object type.
  * @class Object
+ * @memberof Type
  * @extends Type
  * @inheritparams
  */

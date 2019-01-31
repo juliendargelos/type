@@ -11,6 +11,7 @@ var type = require('../type.js');
 /**
  * Represents a number type.
  * @class Number
+ * @memberof Type
  * @extends Type
  * @inheritparams
  * @param {boolean} [options.integer=false] If set to `true`, the type will only validate integers.

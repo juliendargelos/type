@@ -11,6 +11,7 @@ var type = require('../type.js');
 /**
  * Represents a nan (*Not A Number*) type.
  * @class Nan
+ * @memberof Type
  * @extends Type
  * @inheritparams
  */

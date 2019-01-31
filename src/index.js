@@ -8,6 +8,9 @@ import NumberType from '~/types/number'
 import StringType from '~/types/string'
 import ArrayType from '~/types/array'
 import ObjectType from '~/types/object'
+import InstanceType from '~/types/instance'
+import FunctionType from '~/types/function'
+import ClassType from '~/types/class'
 import ValueType from '~/types/value'
 import MixedType from '~/types/mixed'
 
@@ -64,6 +67,24 @@ Type.register(ArrayType)
  * @memberof Type
  */
 Type.register(ObjectType)
+
+/**
+ * @member {Generator.<Type.Instance>} instance
+ * @memberof Type
+ */
+Type.register(InstanceType)
+
+/**
+ * @member {Generator.<Type.Function>} function
+ * @memberof Type
+ */
+Type.register(FunctionType)
+
+/**
+ * @member {Generator.<Type.Class>} class
+ * @memberof Type
+ */
+Type.register(ClassType)
 
 /**
  * @member {Generator.<Type.Value>} value

@@ -9,6 +9,7 @@ import Type from '../type.mjs';
 /**
  * Represents an array type.
  * @class Array
+ * @memberof Type
  * @extends Type
  * @inheritparams :1
  * @param {(Type[]|Type)?} [structure=null] The structure an array must have to be valid. If a {@link Type} is given, all array values must be valid for the given type. If a `Array.<{@link Type}>` is given, each value of the array must be valid for the given type at the same index. Overflow values are ignored.

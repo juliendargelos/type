@@ -34,7 +34,7 @@
     "collectCoverage": true,
     "collectCoverageFrom": [
       "<rootDir>/src/**/*",
-      "!<rootDir>/src/types/(boolean|nan|null|undefined).js"
+      "!<rootDir>/src/types/(boolean|nan|null|undefined|function).js"
     ],
     "coverageReporters": ["lcov", "text"],
     "coverageThreshold": {

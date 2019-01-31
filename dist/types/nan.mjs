@@ -9,6 +9,7 @@ import Type from '../type.mjs';
 /**
  * Represents a nan (*Not A Number*) type.
  * @class Nan
+ * @memberof Type
  * @extends Type
  * @inheritparams
  */
